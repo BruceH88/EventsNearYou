@@ -1,0 +1,25 @@
+.jumbotron {
+    min-height: 500px;
+}
+
+.backgroundsettings {
+    opacity: 0.8;
+    filter: alpha(opacity=50);
+    background-size:100%;
+}
+
+#background1 {
+    background-image: url("../Images/JTBackgrounds/bikers.jpeg");
+}
+#background2 {
+    background-image: url("../Images/JTBackgrounds/concert.jpeg");
+}
+#background3 {
+    background-image: url("../Images/JTBackgrounds/festival.jpg");
+}
+#background4 {
+    background-image: url("../Images/JTBackgrounds/h-a-b.jpeg");
+}
+#background5 {
+    background-image: url("../Images/JTBackgrounds/performer.jpg");
+}
