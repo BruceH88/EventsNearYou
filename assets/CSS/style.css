@@ -1,0 +1,20 @@
+.backgroundsettings {
+  opacity: 0.6;
+  filter: alpha(opacity=50);
+}
+
+#background1 {
+  background-image: url("../Images/JTBackgrounds/bikers.jpeg");
+}
+#background2 {
+  background-image: url("../Images/JTBackgrounds/concert.jpeg");
+}
+#background3 {
+  background-image: url("../Images/JTBackgrounds/festival.jpeg");
+}
+#background4 {
+  background-image: url("../Images/JTBackgrounds/h-a-b.jpeg");
+}
+#background5 {
+  background-image: url("../Images/JTBackgrounds/performer.jpeg");
+}
