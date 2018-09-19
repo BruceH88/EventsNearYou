@@ -1,12 +1,35 @@
-.jumbotron {
-    min-height: 500px;
+body {
+    font-family: 'Muli', sans-serif;
 }
 
-.backgroundsettings {
-    opacity: 0.8;
-    filter: alpha(opacity=50);
-    background-size:100%;
+
+.jumbo-content {
+    /* opacity: 1; */
+    /* filter: alpha(opacity=80); */
+    border-radius: 25px;
+    /* border: 2px solid #73AD21; */
+    /* padding: 20px;  */
+    background-color: white;
+    opacity: 0.85;
+    filter: alpha(opacity=90);
+    width: 80%;
+    /* vertical-align:50%; */
+
 }
+
+.btn-outline-dark:hover {
+
+  background-color: white;
+  color:black;
+    
+}
+
+.btn-outline-dark:active {
+
+    background-color: black;
+    color:white;
+      
+  }
 
 #background1 {
     background-image: url("../Images/JTBackgrounds/bikers.jpeg");
@@ -18,8 +41,13 @@
     background-image: url("../Images/JTBackgrounds/festival.jpg");
 }
 #background4 {
+    background: center;
     background-image: url("../Images/JTBackgrounds/h-a-b.jpeg");
 }
 #background5 {
     background-image: url("../Images/JTBackgrounds/performer.jpg");
+}
+
+#header {
+    font-family: 'Abril Fatface', cursive;
 }

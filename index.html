@@ -5,70 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Link to Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <!-- Link to Fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <!-- Link to Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Muli" rel="stylesheet">
+    <!-- Link to CSS -->
     <link rel="stylesheet" href="assets/CSS/style.css">
     <title>Events Near You</title>
 </head>
 
-<body>
-<div class="jumbotron jumbotron-fluid backgroundsettings">
+<body class="container-fluid px-0">
 
-<h1 class = "text-center" >Events Near You</h1>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <input type="search" id="address-input" class="form-control" placeholder="Select a city" />
+    <div class="">
 
-        </div>
-        <div class="col-12 col-md-3">
-                <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select a day
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">Today</a>
-                          <a class="dropdown-item" href="#">Tomorrow</a>
-                          <a class="dropdown-item" href="#">Option 3</a>
+        <div class="jumbotron jumbotron-fluid backgroundsettings ">
+            <div class=" jumbo-content my-5 px-3 mx-auto py-3">
+                <h1 id="header" class="text-center">Events Near You</h1>
+                
+                <div class="row py-2">
+                    <div class="col-12 col-sm-6 col-md-4 px-auto my-1">
+                        <input type="text" id="event-input" class="form-control btn-outline-dark" placeholder="Event" />
+
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 px-auto my-1">
+                        <input type="search" id="address-input" class="form-control btn-outline-dark" placeholder="City" />
+
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-2 px-auto text-right my-1">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select a day
+                            </button>
+                            <div class="dropdown-menu btn btn-outline-dark" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Today</a>
+                                <a class="dropdown-item" href="#">Tomorrow</a>
+                                <a class="dropdown-item" href="#">This Week</a>
+                                <a class="dropdown-item" href="#">This Weekend</a>
+                            </div>
                         </div>
-                      </div>
-        </div>
-        <div class="col-12 col-md-3">
-                <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select a day
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">Today</a>
-                          <a class="dropdown-item" href="#">Tomorrow</a>
-                          <a class="dropdown-item" href="#">Option 3</a>
-                        </div>
-                      </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-1 px-auto text-right my-1">
+                        <button id="eventSearch" class="btn btn-outline-dark">Search</button>
+                    </div>
+                    <div class="col-12 col-md-1">
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
-
-</div>
-
-<div class="container">
     <div class="row">
-        <div class="col-12 col-md-6">
-            <img src="assets/Images/exampleimages/improv.jpg" alt="example" width="100%">
+      <div class="col-12 col-md-6">
+        <img src="assets/Images/exampleimages/improv.jpg" alt="example" width="100%">
+      </div>
+      <div class="col-12 col-md-6">
+        SEP 20
+        <br>
+        IMPROV 100 THURSDAYS- Intro to Improv <br> Build Confidence FALL
+        by The Improv School Unexpected Productions
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <img src="" id="event-image">
         </div>
-        <div class="col-12 col-md-6">
-                SEP 20
-                <br>
-                IMPROV 100 THURSDAYS- Intro to Improv <br> Build Confidence FALL
-                by The Improv School Unexpected Productions
+        <div class="col-3" id="event-card">
+
         </div>
     </div>
-</div>
+
+
+
+
+    <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/places.js@1.10.0"></script>
+    <!-- Link to Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <!-- Link to Script -->
     <script src="assets/JS/app.js"></script>
 </body>
 
