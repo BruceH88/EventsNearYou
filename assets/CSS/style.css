@@ -1,20 +1,53 @@
-.backgroundsettings {
-  opacity: 0.6;
-  filter: alpha(opacity=50);
+body {
+    font-family: 'Muli', sans-serif;
 }
 
+
+.jumbo-content {
+    /* opacity: 1; */
+    /* filter: alpha(opacity=80); */
+    border-radius: 25px;
+    /* border: 2px solid #73AD21; */
+    /* padding: 20px;  */
+    background-color: white;
+    opacity: 0.85;
+    filter: alpha(opacity=90);
+    width: 80%;
+    /* vertical-align:50%; */
+
+}
+
+.btn-outline-dark:hover {
+
+  background-color: white;
+  color:black;
+    
+}
+
+.btn-outline-dark:active {
+
+    background-color: black;
+    color:white;
+      
+  }
+
 #background1 {
-  background-image: url("../Images/JTBackgrounds/bikers.jpeg");
+    background-image: url("../Images/JTBackgrounds/bikers.jpeg");
 }
 #background2 {
-  background-image: url("../Images/JTBackgrounds/concert.jpeg");
+    background-image: url("../Images/JTBackgrounds/concert.jpeg");
 }
 #background3 {
-  background-image: url("../Images/JTBackgrounds/festival.jpeg");
+    background-image: url("../Images/JTBackgrounds/festival.jpg");
 }
 #background4 {
-  background-image: url("../Images/JTBackgrounds/h-a-b.jpeg");
+    background: center;
+    background-image: url("../Images/JTBackgrounds/h-a-b.jpeg");
 }
 #background5 {
-  background-image: url("../Images/JTBackgrounds/performer.jpeg");
+    background-image: url("../Images/JTBackgrounds/performer.jpg");
+}
+
+#header {
+    font-family: 'Abril Fatface', cursive;
 }
