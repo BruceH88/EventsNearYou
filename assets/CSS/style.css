@@ -31,6 +31,23 @@ body {
       
   }
 
+.header {
+    padding: 10px 16px;
+    background: #555;
+    color: #f1f1f1;
+  }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .responsive {
+    width: 100%;
+    height: auto;
+}
+
 #background1 {
     background-image: url("../Images/JTBackgrounds/bikers.jpeg");
 }
@@ -50,4 +67,9 @@ body {
 
 #header {
     font-family: 'Abril Fatface', cursive;
+}
+
+#event-example-img {
+    background-image: url("../Images/exampleimages/blurBG.jpg");
+    height: 250px;
 }
