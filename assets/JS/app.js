@@ -1,6 +1,13 @@
 // Define Constants
 var WeatherAPIKey = "ff7593f8e0464608841e5c9dd3adfff5";
 
+var todayDD = $("#today");
+var tomorrowDD = $("#tomorrow");
+var thisWeekDD = $("#this-week");
+var thisWeekendDD = $("#this-weekend");
+var nextWeekDD = $("#next-week");
+var dateDD = $("#dropdownMenuButton");
+
 
 // Define variables
 var bgArr = [
@@ -73,7 +80,38 @@ var weather = {
   });
 })();
 
+window.onscroll = function() {myFunction()};
 
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
+$(todayDD).on("click", function() {
+    $(dateDD).text("Today");
+});
+
+$(tomorrowDD).on("click", function() {
+    $(dateDD).text("Tomorrow");
+});
+
+$(thisWeekDD).on("click", function() {
+    $(dateDD).text("This Week");
+});
+
+$(thisWeekendDD).on("click", function() {
+    $(dateDD).text("This Weekend");
+});
+
+$(nextWeekDD).on("click", function() {
+    $(dateDD).text("Next Week");
+});
 
 // Eventbrite API 
 var searchEvents = function () {
