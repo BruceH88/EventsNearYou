@@ -1,7 +1,6 @@
 // Define Constants
 var WeatherAPIKey = "ff7593f8e0464608841e5c9dd3adfff5";
 
-
 // Define variables
 var bgArr = [
   "background1",
@@ -13,8 +12,10 @@ var bgArr = [
 var randBG = bgArr[Math.floor(Math.random() * bgArr.length)];
 var searchTerm = "live music";
 var searchLoc = "Rockaway, New Jersey, United States of America";
+var holdSearchLoc = "";
 
-var weatherData = null;
+var hourWeatherData = null;
+var dayWeatherData = null;
 var eventData = null;
 
 // Define Objects
@@ -28,13 +29,18 @@ var weather = {
     console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
     var curTime = moment();
     var hourDiff = eventStart.diff(curTime, 'hours');
+    var dayDiff = eventStart.diff(curTime, 'days');
     console.log("Diff " + hourDiff);
-    var index = Math.floor(parseInt(hourDiff) / 3) + 1;
+    var index = Math.floor(parseInt(hourDiff) / 3);
     console.log("Index " + index);
+    var weatherData = null;
     if (index > 40) {
-      index = index % 40;
+      weatherData = hourWeatherData;
+    } else {
+      index = parseInt(dayDiff);
+      console.log("Index " + index);
+      weatherData = dayWeatherData;
     }
-    console.log("Index " + index);
 
     console.log(weatherData[index]);
     var iconImg = $("<img>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
@@ -44,9 +50,10 @@ var weather = {
     weatherDiv.append(iconImg);
     weatherDiv.append(tempP);
     return weatherDiv;
+
   },
 
-  searchWeather: function () {
+  search3hourWeather: function () {
     var queryURL = "https://api.weatherbit.io/v2.0/forecast/3hourly?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
 
     $.ajax({
@@ -54,8 +61,23 @@ var weather = {
       method: "GET"
     })
       .then(function (response) {
-        weatherData = response.data;
-        console.log(weatherData);
+        hourWeatherData = response.data;
+        console.log(hourWeatherData);
+        buildResults();
+
+      });
+  },
+
+  search1DayWeather: function () {
+    var queryURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      .then(function (response) {
+        dayWeatherData = response.data;
+        console.log(dayWeatherData);
         buildResults();
 
       });
@@ -109,7 +131,7 @@ var searchEvents = function () {
 function buildResults() {
 
   console.log("in buildResults");
-  if (weatherData == null || eventData == null) {
+  if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
     return false;
   }
   console.log("We have all the data");
@@ -136,9 +158,15 @@ $('.backgroundsettings').attr('id', randBG);
 $("#eventSearch").on("click", function (event) {
   searchLoc = $("#address-input").val().trim();
   console.log(searchLoc);
-  weather.searchWeather();
+  if (searchLoc !== holdSearchLoc) {
+    hourWeatherData = null;
+    dayWeatherData = null;
+    weather.search3hourWeather();
+    weather.search1DayWeather();
+  }
+  eventData = null;
   searchEvents();
-
+  holdSearchLoc = searchLoc;
 });
 
 
