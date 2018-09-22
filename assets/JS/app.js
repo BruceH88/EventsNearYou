@@ -80,18 +80,18 @@ var weather = {
   });
 })();
 
-window.onscroll = function() {myFunction()};
+// window.onscroll = function() {myFunction()};
 
-var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
+// var header = document.getElementById("myHeader");
+// var sticky = header.offsetTop;
 
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
+// function myFunction() {
+//   if (window.pageYOffset > sticky) {
+//     header.classList.add("sticky");
+//   } else {
+//     header.classList.remove("sticky");
+//   }
+// }
 
 $(todayDD).on("click", function() {
     $(dateDD).text("Today");
@@ -173,7 +173,11 @@ $('.backgroundsettings').attr('id', randBG);
 
 $("#eventSearch").on("click", function (event) {
   searchLoc = $("#address-input").val().trim();
+  searchEvn = $("#event-input").val().trim();
+  searchDay = $("#dropdownMenuButton").text().trim();
   console.log(searchLoc);
+  console.log(searchEvn);
+  console.log(searchDay);
   weather.searchWeather();
   searchEvents();
 
