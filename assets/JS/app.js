@@ -21,9 +21,11 @@ var randBG = bgArr[Math.floor(Math.random() * bgArr.length)];
 
 var searchTerm = $("#event-input").text();
 var searchLoc = $("#address-input").val();
-var searchRange = $("#dropdownMenu").val();
+var searchRange = $("#dropdownMenuButton").val();
 
 console.log(searchTerm);
+console.log(searchLoc);
+console.log(searchRange);
 // 
 
 var weatherData = null;
@@ -233,11 +235,11 @@ $("#eventSearch").on("click", function (event) {
 
   $("#event-card").empty();
   searchLoc = $("#address-input").val().trim();
-  searchEvn = $("#event-input").val().trim();
-  searchDay = $("#dropdownMenuButton").text().trim();
+//   searchEvn = $("#event-input").val().trim();
+//   searchDay = $("#dropdownMenuButton").text().trim();
   console.log(searchLoc);
-  console.log(searchEvn);
-  console.log(searchDay);
+//   console.log(searchEvn);
+//   console.log(searchDay);
   weather.searchWeather();
   searchEvents();
 
