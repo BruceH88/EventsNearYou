@@ -16,14 +16,27 @@
     <title>Events Near You</title>
 </head>
 
-<body class="container-fluid px-0">
+<body class=" px-0 mx-0">
 
-    <div class="">
+    <div class="header" id="myHeader">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">ENYwhere</a>
+                </div>
+               
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span>Contact Us</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-grain"></span> About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
-        <div class="jumbotron jumbotron-fluid backgroundsettings ">
-            <div class=" jumbo-content my-5 px-3 mx-auto py-3">
-                <h1 id="header" class="text-center">Events Near You</h1>
-                
+    <div class="jumbotron jumbotron-fluid backgroundsettings ">
+        <div class=" jumbo-content my-5 px-3 mx-auto py-3">
+            <h1 id="header" class="text-center">Events Near You</h1>
+            <div class="container">
                 <div class="row py-2">
                     <div class="col-12 col-sm-6 col-md-4 px-auto my-1">
                         <input type="text" id="event-input" class="form-control btn-outline-dark" placeholder="Event" />
@@ -35,14 +48,16 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-2 px-auto text-right my-1">
                         <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Select a day
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Day
                             </button>
                             <div class="dropdown-menu btn btn-outline-dark" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Today</a>
-                                <a class="dropdown-item" href="#">Tomorrow</a>
-                                <a class="dropdown-item" href="#">This Week</a>
-                                <a class="dropdown-item" href="#">This Weekend</a>
+                                <a class="dropdown-item" id="today" href="#">Today</a>
+                                <a class="dropdown-item" id="tomorrow" href="#">Tomorrow</a>
+                                <a class="dropdown-item" id="this-week" href="#">This Week</a>
+                                <a class="dropdown-item" id="this-weekend" href="#">This Weekend</a>
+                                <a class="dropdown-item" id="next-week" href="#">Next Week</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +67,6 @@
                     <div class="col-12 col-md-1">
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -79,8 +93,96 @@
       </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <img src="" id="event-image">
+            </div>
+            <div class="col-3" id="event-card">
 
+            </div>
+        </div>
+    </div>
 
+    <div>
+        "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms
+        of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to
+        ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying
+        through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when
+        our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure
+        is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations
+        of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore
+        always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures,
+        or else he endures pains to avoid worse pains.""On the other hand, we denounce with righteous indignation and dislike
+        men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
+        cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty
+        through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly
+        simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents
+        our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
+        and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be
+        repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection:
+        he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.""On the other
+        hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of
+        pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue;
+        and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through
+        shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our
+        power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure
+        is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations
+        of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore
+        always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures,
+        or else he endures pains to avoid worse pains.""On the other hand, we denounce with righteous indignation and dislike
+        men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
+        cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty
+        through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly
+        simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents
+        our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
+        and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be
+        repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection:
+        he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.""On the other
+        hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of
+        pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue;
+        and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through
+        shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our
+        power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure
+        is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations
+        of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore
+        always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures,
+        or else he endures pains to avoid worse pains.""On the other hand, we denounce with righteous indignation and dislike
+        men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
+        cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty
+        through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly
+        simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents
+        our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
+        and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be
+        repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection:
+        he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.""On the other
+        hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of
+        pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue;
+        and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through
+        shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our
+        power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure
+        is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations
+        of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore
+        always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures,
+        or else he endures pains to avoid worse pains.""On the other hand, we denounce with righteous indignation and dislike
+        men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
+        cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty
+        through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly
+        simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents
+        our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances
+        and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be
+        repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection:
+        he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.""On the other
+        hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of
+        pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue;
+        and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through
+        shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our
+        power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure
+        is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations
+        of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore
+        always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures,
+        or else he endures pains to avoid worse pains."
+    </div>
 
     <!-- Link to Moment.js should go here -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
