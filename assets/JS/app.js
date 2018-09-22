@@ -65,7 +65,7 @@ var weather = {
       weatherDiv.append(tempP);
       return weatherDiv;
     } else {
-      var noWeather = $("<div>").text("Forcast not available yet.")
+      var noWeather = $("<div>").text("Forecast not available yet.")
       return noWeather;
     }
 
@@ -156,7 +156,8 @@ var searchEvents = function () {
 
   var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc + "&&start_date.keyword=" + searchRange;
 
-  console.log(queryURL);
+  // var queryURL = "https://www.eventbriteapi.com/v3/events/" + eventId +"/?token=FC6LKU64DWMREUUXI5CZ"
+  // console.log(queryURL);
 
   $.ajax({
 
@@ -210,7 +211,7 @@ function buildResults() {
     var eventName = (eventData[i].name.text);
     var eventStart = (eventData[i].start.local);
     var eventDescribe = (eventData[i].description.text);
-
+    
     // moment.js for converting "2018-09-23T08:00:00"
     // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
     var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
@@ -220,9 +221,9 @@ function buildResults() {
 
     var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
+    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
-    eventInfo += "</h3> <h2 class='row'>";
+    eventInfo += "</a> </h3> <h2 class='row'>";
     eventInfo += startReformat;
     eventInfo += "</h2> <p class='row'>";
     eventInfo += eventSnippet;

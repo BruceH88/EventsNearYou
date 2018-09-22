@@ -83,8 +83,8 @@ body {
 }
 
 #event-card img {
-  width: 300px;
-  height: 225px;
+  max-width: 300px;
+  max-height: auto;
 }
 
 .weather {
