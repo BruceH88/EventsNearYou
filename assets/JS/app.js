@@ -19,16 +19,13 @@ var bgArr = [
 ];
 var randBG = bgArr[Math.floor(Math.random() * bgArr.length)];
 
-var searchTerm = $("#event-input").text();
-var searchLoc = $("#address-input").val();
-var searchRange = $("#dropdownMenuButton").val();
+var searchTerm = "";
+var searchLoc = "";
+var searchRange = "";
+var holdSearchLoc = "";
 
-console.log(searchTerm);
-console.log(searchLoc);
-console.log(searchRange);
-// 
-
-var weatherData = null;
+var hourWeatherData = null;
+var dayWeatherData = null;
 var eventData = null;
 
 // Define Objects
@@ -42,25 +39,39 @@ var weather = {
     console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
     var curTime = moment();
     var hourDiff = eventStart.diff(curTime, 'hours');
+    var dayDiff = eventStart.diff(curTime, 'days');
     console.log("Diff " + hourDiff);
-    var index = Math.floor(parseInt(hourDiff) / 3) + 1;
+    var index = Math.floor(parseInt(hourDiff) / 3);
     console.log("Index " + index);
-    if (index > 40) {
-      index = index % 40;
+    var weatherData = null;
+    if (index <= 40) {
+      weatherData = hourWeatherData;
+    } else {
+      index = parseInt(dayDiff);
+      console.log("Index " + index);
+      weatherData = dayWeatherData;
+      if (index > 16) {
+        index = -1;
+      }
     }
-    console.log("Index " + index);
 
-    console.log(weatherData[index]);
-    var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
-    iconImg.attr("alt", weatherData[index].weather.description);
-    var tempP = $("<p>").text("Temp (F) " + weatherData[index].temp);
-    var weatherDiv = $("<div>");
-    weatherDiv.append(iconImg);
-    weatherDiv.append(tempP);
-    return weatherDiv;
+    if (index >= 0) {
+      console.log(weatherData[index]);
+      var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+      iconImg.attr("alt", weatherData[index].weather.description);
+      var tempP = $("<p>").text("Temp (F) " + weatherData[index].temp);
+      var weatherDiv = $("<div>");
+      weatherDiv.append(iconImg);
+      weatherDiv.append(tempP);
+      return weatherDiv;
+    } else {
+      var noWeather = $("<div>").text("Forcast not available yet.")
+      return noWeather;
+    }
+
   },
 
-  searchWeather: function () {
+  search3hourWeather: function () {
     var queryURL = "https://api.weatherbit.io/v2.0/forecast/3hourly?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
 
     $.ajax({
@@ -68,8 +79,23 @@ var weather = {
       method: "GET"
     })
       .then(function (response) {
-        weatherData = response.data;
-        console.log(weatherData);
+        hourWeatherData = response.data;
+        console.log(hourWeatherData);
+        buildResults();
+
+      });
+  },
+
+  search1DayWeather: function () {
+    var queryURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      .then(function (response) {
+        dayWeatherData = response.data;
+        console.log(dayWeatherData);
         buildResults();
 
       });
@@ -142,26 +168,37 @@ var searchEvents = function () {
     eventData = response.events;
 
     buildResults();
-    // var eventName = (response.events[0].name.text);
-    // var eventStart = (response.events[0].start.local);
-    // var eventImage = (response.events[0].logo.original.url)
 
-    // // moment.js for converting "2018-09-23T08:00:00"
-    // // var eventNewFormat = "MM/DD/YY, hh:mm";
-    // var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
-
-    // $("#event-card").text(eventName + ": " + startReformat);
-    // $("#event-image").attr("src", eventImage);
-
-    // $("#event-weather").append(weather.getBasicWeather(eventStart));
   })
 
 };
 
+
+function SearchRestaurants() {
+  var queryURL = "https://api.yelp.com/v3/businesses/search?location=new+brunswick+nj";
+
+  var corsURL = "https://cors-anywhere.herokuapp.com/" + queryURL
+  $.ajax({
+    url: corsURL,
+    method: "GET",
+    headers: {
+      'Authorization': "Bearer lhrYn5dCGekuwLnEd9gJ1XZI1Mr5EA-RXfMD-LDRQw6NsttLtGhcACHI6c9Psctt1talcXkzC2ZqF0vw4m8PqzcA4s9tQjESqhJG5eCLtUokgdGrgeKGH0tDCj2kW3Yx"
+    }
+  }).then(function (response) {
+    console.log("Restaurants");
+    console.log(response);
+  })
+
+};
+
+
+
+
+
 function buildResults() {
 
   console.log("in buildResults");
-  if (weatherData == null || eventData == null) {
+  if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
     return false;
   }
   console.log("We have all the data");
@@ -193,9 +230,9 @@ function buildResults() {
 
     console.log(eventInfo)
 
-    var eventImage = (eventData[i].logo.original.url);
+    var eventImage = "";
     // CYA for missing event image
-    if ((eventData[i].logo) == "null") {
+    if ((eventData[i].logo) == null) {
       eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
     } else {
       eventImage = (eventData[i].logo.original.url);
@@ -212,17 +249,7 @@ function buildResults() {
 
     console.log(eventRender);
 
-
     $("#event-card").append(eventRender);
-
-    if (i === 4) {
-
-      let i = eventData.length;
-
-    }
-
-
-
   };
 
 };
@@ -234,14 +261,29 @@ $('.backgroundsettings').attr('id', randBG);
 $("#eventSearch").on("click", function (event) {
 
   $("#event-card").empty();
-  searchLoc = $("#address-input").val().trim();
-//   searchEvn = $("#event-input").val().trim();
-//   searchDay = $("#dropdownMenuButton").text().trim();
+
+  searchTerm = $("#event-input").val();
+  searchLoc = $("#address-input").val();
+  searchRange = $("#dropdownMenuButton").val();
+
+  console.log(searchTerm);
   console.log(searchLoc);
-//   console.log(searchEvn);
-//   console.log(searchDay);
-  weather.searchWeather();
+  console.log(searchRange);
+
+  if (searchLoc !== holdSearchLoc) {
+    hourWeatherData = null;
+    dayWeatherData = null;
+    weather.search3hourWeather();
+    weather.search1DayWeather();
+  }
+  eventData = null;
   searchEvents();
+  holdSearchLoc = searchLoc;
+
+  $("#event-input").val("");
+  $("#address-input").val("");
+  $(dateDD).text("Date Range");
+  $(dateDD).val("");
 
 });
 
