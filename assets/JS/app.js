@@ -18,8 +18,10 @@ var bgArr = [
   "background5"
 ];
 var randBG = bgArr[Math.floor(Math.random() * bgArr.length)];
-var searchTerm = "live music";
-var searchLoc = "Rockaway, New Jersey, United States of America";
+
+var searchTerm = "";
+var searchLoc = "";
+var searchRange = "";
 var holdSearchLoc = "";
 
 var hourWeatherData = null;
@@ -42,22 +44,30 @@ var weather = {
     var index = Math.floor(parseInt(hourDiff) / 3);
     console.log("Index " + index);
     var weatherData = null;
-    if (index > 40) {
+    if (index <= 40) {
       weatherData = hourWeatherData;
     } else {
       index = parseInt(dayDiff);
       console.log("Index " + index);
       weatherData = dayWeatherData;
+      if (index > 16) {
+        index = -1;
+      }
     }
 
-    console.log(weatherData[index]);
-    var iconImg = $("<img>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
-    iconImg.attr("alt", weatherData[index].weather.description);
-    var tempP = $("<p>").text("Temp (F) " + weatherData[index].temp);
-    var weatherDiv = $("<div>");
-    weatherDiv.append(iconImg);
-    weatherDiv.append(tempP);
-    return weatherDiv;
+    if (index >= 0) {
+      console.log(weatherData[index]);
+      var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+      iconImg.attr("alt", weatherData[index].weather.description);
+      var tempP = $("<p>").text("Temp (F) " + weatherData[index].temp);
+      var weatherDiv = $("<div>");
+      weatherDiv.append(iconImg);
+      weatherDiv.append(tempP);
+      return weatherDiv;
+    } else {
+      var noWeather = $("<div>").text("Forcast not available yet.")
+      return noWeather;
+    }
 
   },
 
@@ -103,7 +113,7 @@ var weather = {
   });
 })();
 
-window.onscroll = function() {myFunction()};
+window.onscroll = function () { myFunction() };
 
 var header = document.getElementById("myHeader");
 var sticky = header.offsetTop;
@@ -116,30 +126,37 @@ function myFunction() {
   }
 }
 
-$(todayDD).on("click", function() {
-    $(dateDD).text("Today");
+$(todayDD).on("click", function () {
+  $(dateDD).text("Today");
+  $(dateDD).val("today");
 });
 
-$(tomorrowDD).on("click", function() {
-    $(dateDD).text("Tomorrow");
+$(tomorrowDD).on("click", function () {
+  $(dateDD).text("Tomorrow");
+  $(dateDD).val("tomorrow");
 });
 
-$(thisWeekDD).on("click", function() {
-    $(dateDD).text("This Week");
+$(thisWeekDD).on("click", function () {
+  $(dateDD).text("This Week");
+  $(dateDD).val("this_week");
 });
 
-$(thisWeekendDD).on("click", function() {
-    $(dateDD).text("This Weekend");
+$(thisWeekendDD).on("click", function () {
+  $(dateDD).text("This Weekend");
+  $(dateDD).val("this_weekend");
 });
 
-$(nextWeekDD).on("click", function() {
-    $(dateDD).text("Next Week");
+$(nextWeekDD).on("click", function () {
+  $(dateDD).text("Next Week");
+  $(dateDD).val("next_week");
 });
 
 // Eventbrite API 
 var searchEvents = function () {
 
-  var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc;
+  var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc + "&&start_date.keyword=" + searchRange;
+
+  console.log(queryURL);
 
   $.ajax({
 
@@ -151,21 +168,32 @@ var searchEvents = function () {
     eventData = response.events;
 
     buildResults();
-    // var eventName = (response.events[0].name.text);
-    // var eventStart = (response.events[0].start.local);
-    // var eventImage = (response.events[0].logo.original.url)
 
-    // // moment.js for converting "2018-09-23T08:00:00"
-    // // var eventNewFormat = "MM/DD/YY, hh:mm";
-    // var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
-
-    // $("#event-card").text(eventName + ": " + startReformat);
-    // $("#event-image").attr("src", eventImage);
-
-    // $("#event-weather").append(weather.getBasicWeather(eventStart));
   })
 
 };
+
+
+function SearchRestaurants() {
+  var queryURL = "https://api.yelp.com/v3/businesses/search?location=new+brunswick+nj";
+
+  var corsURL = "https://cors-anywhere.herokuapp.com/" + queryURL
+  $.ajax({
+    url: corsURL,
+    method: "GET",
+    headers: {
+      'Authorization': "Bearer lhrYn5dCGekuwLnEd9gJ1XZI1Mr5EA-RXfMD-LDRQw6NsttLtGhcACHI6c9Psctt1talcXkzC2ZqF0vw4m8PqzcA4s9tQjESqhJG5eCLtUokgdGrgeKGH0tDCj2kW3Yx"
+    }
+  }).then(function (response) {
+    console.log("Restaurants");
+    console.log(response);
+  })
+
+};
+
+
+
+
 
 function buildResults() {
 
@@ -175,18 +203,54 @@ function buildResults() {
   }
   console.log("We have all the data");
 
-  var eventName = (eventData[0].name.text);
-  var eventStart = (eventData[0].start.local);
-  var eventImage = (eventData[0].logo.original.url)
+  // event for loop starts here-----
 
-  // moment.js for converting "2018-09-23T08:00:00"
-  // var eventNewFormat = "MM/DD/YY, hh:mm";
-  var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
+  for (i = 0; i < eventData.length; i++) {
 
-  $("#event-card").text(eventName + ": " + startReformat);
-  $("#event-image").attr("src", eventImage);
+    var eventName = (eventData[i].name.text);
+    var eventStart = (eventData[i].start.local);
+    var eventDescribe = (eventData[i].description.text);
 
-  $("#event-weather").append(weather.getBasicWeather(eventStart));
+    // moment.js for converting "2018-09-23T08:00:00"
+    // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
+    var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
+
+    // using .slice to get snippet of event description
+    var eventSnippet = (eventDescribe.slice(0, 260) + "...");
+
+    var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
+    // compile event and weather data to write to DOM
+    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
+    eventInfo += eventName;
+    eventInfo += "</h3> <h2 class='row'>";
+    eventInfo += startReformat;
+    eventInfo += "</h2> <p class='row'>";
+    eventInfo += eventSnippet;
+    eventInfo += "</p> </div>";
+
+    console.log(eventInfo)
+
+    var eventImage = "";
+    // CYA for missing event image
+    if ((eventData[i].logo) == null) {
+      eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
+    } else {
+      eventImage = (eventData[i].logo.original.url);
+    }
+
+    var imageRender = "<div class='col-3 col-md-4'> <img src= ";
+    imageRender += eventImage;
+    imageRender += " class=''> </div>";
+
+    console.log(imageRender);
+
+    var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
+      .append(eventInfo).append(eventWeather);
+
+    console.log(eventRender);
+
+    $("#event-card").append(eventRender);
+  };
 
 };
 
@@ -195,8 +259,17 @@ function buildResults() {
 $('.backgroundsettings').attr('id', randBG);
 
 $("#eventSearch").on("click", function (event) {
-  searchLoc = $("#address-input").val().trim();
+
+  $("#event-card").empty();
+
+  searchTerm = $("#event-input").val();
+  searchLoc = $("#address-input").val();
+  searchRange = $("#dropdownMenuButton").val();
+
+  console.log(searchTerm);
   console.log(searchLoc);
+  console.log(searchRange);
+
   if (searchLoc !== holdSearchLoc) {
     hourWeatherData = null;
     dayWeatherData = null;
@@ -206,6 +279,12 @@ $("#eventSearch").on("click", function (event) {
   eventData = null;
   searchEvents();
   holdSearchLoc = searchLoc;
+
+  $("#event-input").val("");
+  $("#address-input").val("");
+  $(dateDD).text("Date Range");
+  $(dateDD).val("");
+
 });
 
 
