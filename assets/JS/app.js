@@ -197,6 +197,7 @@ function buildResults() {
     return false;
   }
   console.log("We have all the data");
+  console.log(eventData.length);
 
   // event for loop starts here-----
 
@@ -210,7 +211,8 @@ function buildResults() {
 
     // moment.js for converting "2018-09-23T08:00:00"
     // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
-    var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
+    var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
+    var startTime = moment(eventStart).format("h:mm a");
 
     // using .slice to get snippet of event description
     var eventSnippet = (eventDescribe.slice(0, 260) + "...");
@@ -224,11 +226,11 @@ function buildResults() {
     // eventInfo += "</h2> <p class='row'>";
     // eventInfo += eventSnippet;
     // eventInfo += "</p> </div>";
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
+    var eventInfo = "<div class ='col-7 col-md-6 event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
-    eventInfo += "</a> </h3> <h2 class='row'>";
-    eventInfo += startReformat;
-    eventInfo += "</h2> <p class='row'>";
+    eventInfo += "</a> </h2> <h3 class='row'>";
+    eventInfo += startDate + " @" + startTime;
+    eventInfo += "</h3> <p class='row'>";
     eventInfo += eventSnippet;
     eventInfo += "</p> </div>";
     console.log(eventInfo)
@@ -247,12 +249,20 @@ function buildResults() {
 
     console.log(imageRender);
 
+    if ((eventData.length) === 0) {
+
+     console.log("No events available!");
+      
+    } else {
+
     var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
       .append(eventInfo).append(eventWeather);
 
     console.log(eventRender);
 
     $("#event-card").append(eventRender);
+
+    };
   };
 
 };
@@ -288,7 +298,7 @@ $("#eventSearch").on("click", function (event) {
   $(dateDD).text("Date Range");
   $(dateDD).val("");
 
-  SearchRestaurants();
+  // SearchRestaurants();
 });
 
 
