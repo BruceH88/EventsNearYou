@@ -18,40 +18,35 @@
 
 <body class=" px-0 mx-0">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html">ENYware</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <a class="navbar-brand abs" href="index.html">ENYware</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto text-right">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Placeholder</a>
-                    </li>
-                  </ul>
-
+                <div class="navbar-collapse collapse" id="collapsingNavbar">
+                    <ul class="navbar-nav ml-auto mr-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
+                        </li>
+                    </ul>
                 </div>
-              </nav>
+            </nav>
 
     <div class="jumbotron jumbotron-fluid backgroundsettings ">
         <div class=" jumbo-content my-5 px-3 mx-auto py-3">
             <h1 id="header" class="text-center">Events Near You</h1>
             <div class="container">
-                <div class="row py-2">
+                <div class="row py-2" width>
 
-                    <div class="col-12 col-sm-6 col-md-4 px-auto my-1">
+                    <div class="col-12 col-sm-6 col-lg-4 px-auto my-1">
                         <input type="text" id="event-input" class="form-control btn-outline-dark" placeholder="Event" />
 
                     </div>
-                    <div class="col-12 col-sm-6 col-md-4 px-auto my-1">
+                    <div class="col-12 col-sm-6 col-lg-4 px-auto my-1">
                         <input type="search" id="address-input" class="form-control btn-outline-dark" placeholder="City" />
 
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2 px-auto text-right my-1">
+                    <div class="col-12 col-sm-6 col-lg-2 px-auto text-right my-1">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,18 +61,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-1 px-auto text-right my-1">
+                    <div class="col-12 col-sm-6 col-lg-2 px-auto text-right my-1">
                         <button id="eventSearch" class="btn btn-outline-dark">Search</button>
                     </div>
 
-                    <div class="col-12 col-md-1">
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-12" id="event-card">
+    <div class="col-12 container mx-auto jumbo-content py-3" id="event-card">
 
     </div>
 

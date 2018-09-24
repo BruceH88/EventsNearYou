@@ -57,9 +57,9 @@ var weather = {
 
     if (index >= 0) {
       console.log(weatherData[index]);
-      var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+      var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").text("Temp (F) " + weatherData[index].temp);
+      var tempP = $("<p>").text(weatherData[index].temp + "°F");
       var weatherDiv = $("<div>");
       weatherDiv.append(iconImg);
       weatherDiv.append(tempP);
@@ -113,18 +113,9 @@ var weather = {
   });
 })();
 
-// window.onscroll = function () { myFunction() };
-
-// var header = document.getElementById("myHeader");
-// var sticky = header.offsetTop;
-
-// function myFunction() {
-//   if (window.pageYOffset > sticky) {
-//     header.classList.add("sticky");
-//   } else {
-//     header.classList.remove("sticky");
-//   }
-// }
+$( document ).ready(function() {
+    $("#event-card").hide();
+});
 
 $(todayDD).on("click", function () {
   $(dateDD).text("Today");
@@ -220,9 +211,9 @@ function buildResults() {
 
     var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
+    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'> <a href='event.html'>";
     eventInfo += eventName;
-    eventInfo += "</h3> <h2 class='row'>";
+    eventInfo += "</a></h3> <h2 class='row'>";
     eventInfo += startReformat;
     eventInfo += "</h2> <p class='row'>";
     eventInfo += eventSnippet;
@@ -240,20 +231,19 @@ function buildResults() {
 
     var imageRender = "<div class='col-3 col-md-4'> <img src= ";
     imageRender += eventImage;
-    imageRender += " class=''> </div>";
+    imageRender += " class='img-fluid'> </div>";
 
     console.log(imageRender);
 
-    var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
+    var eventRender = $("<div class='row px-1 py-2 m-2 event-bord'>").append(imageRender)
       .append(eventInfo).append(eventWeather);
 
     console.log(eventRender);
 
     $("#event-card").append(eventRender);
   };
-
+  $("#event-card").show();
 };
-
 
 
 $('.backgroundsettings').attr('id', randBG);
@@ -270,6 +260,7 @@ $("#eventSearch").on("click", function (event) {
   console.log(searchLoc);
   console.log(searchRange);
 
+
   if (searchLoc !== holdSearchLoc) {
     hourWeatherData = null;
     dayWeatherData = null;
@@ -280,12 +271,12 @@ $("#eventSearch").on("click", function (event) {
   searchEvents();
   holdSearchLoc = searchLoc;
 
+
   $("#event-input").val("");
   $("#address-input").val("");
   $(dateDD).text("Date Range");
   $(dateDD).val("");
 
 });
-
 
 

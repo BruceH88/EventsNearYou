@@ -1,19 +1,48 @@
 body {
     font-family: 'Muli', sans-serif;
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 }
 
+.navbar {
+    color: #FF4E40;
+}
+
+.weatherIcon {
+    height:50%;
+    width:50%;
+}
+
+.event-bord {
+    border-bottom-color: #203A43;
+    border-bottom-style: groove;
+    border-bottom-width: 1px;
+}
+
+#event-card a:link {
+    color: #CC1441;
+}
+
+#event-card a:visited {
+    color: #CC1441;
+}
+
+#event-card a:hover {
+    color: #CC1441;
+}
+
+#event-card a:active {
+    color: #FF4E40;
+}
 
 .jumbo-content {
-    /* opacity: 1; */
-    /* filter: alpha(opacity=80); */
     border-radius: 25px;
-    /* border: 2px solid #73AD21; */
-    /* padding: 20px;  */
     background-color: white;
     opacity: 0.85;
     filter: alpha(opacity=90);
-    width: 80%;
-    /* vertical-align:50%; */
+    width: 82%;
 
 }
 
@@ -22,6 +51,11 @@ body {
   background-color: white;
   color:black;
     
+}
+
+.dropdown-item:active {
+    background-color: white;
+    color:black;
 }
 
 .btn-outline-dark:active {
@@ -82,10 +116,10 @@ body {
   border: none;
 }
 
-#event-card img {
+/* #event-card img {
   width: 300px;
   height: 225px;
-}
+} */
 
 .weather {
   width: 25px;
