@@ -37,11 +37,16 @@ var weather = {
     // eventTime formatted as 2018-09-23T08:00:00
     var eventStart = moment(eventTime, "YYYY-MM-DD hh:mm:ss");
     console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
+    var index = 0;
     var curTime = moment();
     var hourDiff = eventStart.diff(curTime, 'hours');
     var dayDiff = eventStart.diff(curTime, 'days');
     console.log("Diff " + hourDiff);
-    var index = Math.floor(parseInt(hourDiff) / 3);
+    if (hourDiff < 1) {
+      index = 0;
+    } else {
+      index = Math.floor(parseInt(hourDiff) / 3);
+    }
     console.log("Index " + index);
     var weatherData = null;
     if (index <= 40) {
@@ -54,18 +59,19 @@ var weather = {
         index = -1;
       }
     }
+    console.log(weatherData);
 
-    if (index >= 0) {
+    if (index >= 0 && index < weatherData.length) {
       console.log(weatherData[index]);
       var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").text(weatherData[index].temp + "°F");
+      var tempP = $("<p>").text(weatherData[index].temp + "° F");
       var weatherDiv = $("<div>");
       weatherDiv.append(iconImg);
       weatherDiv.append(tempP);
       return weatherDiv;
     } else {
-      var noWeather = $("<div>").text("Forcast not available yet.")
+      var noWeather = $("<div>").text("Forecast not available.")
       return noWeather;
     }
 
@@ -79,7 +85,11 @@ var weather = {
       method: "GET"
     })
       .then(function (response) {
-        hourWeatherData = response.data;
+        if (typeof response === "undefined") {
+          hourWeatherData = [];
+        } else {
+          hourWeatherData = response.data;
+        }
         console.log(hourWeatherData);
         buildResults();
 
@@ -94,7 +104,11 @@ var weather = {
       method: "GET"
     })
       .then(function (response) {
-        dayWeatherData = response.data;
+        if (typeof response === "undefined") {
+          dayWeatherData = [];
+        } else {
+          dayWeatherData = response.data;
+        }
         console.log(dayWeatherData);
         buildResults();
 
@@ -147,7 +161,8 @@ var searchEvents = function () {
 
   var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc + "&&start_date.keyword=" + searchRange;
 
-  console.log(queryURL);
+  // var queryURL = "https://www.eventbriteapi.com/v3/events/" + eventId +"/?token=FC6LKU64DWMREUUXI5CZ"
+  // console.log(queryURL);
 
   $.ajax({
 
@@ -165,26 +180,6 @@ var searchEvents = function () {
 };
 
 
-function SearchRestaurants() {
-  var queryURL = "https://api.yelp.com/v3/businesses/search?location=new+brunswick+nj";
-
-  var corsURL = "https://cors-anywhere.herokuapp.com/" + queryURL
-  $.ajax({
-    url: corsURL,
-    method: "GET",
-    headers: {
-      'Authorization': "Bearer lhrYn5dCGekuwLnEd9gJ1XZI1Mr5EA-RXfMD-LDRQw6NsttLtGhcACHI6c9Psctt1talcXkzC2ZqF0vw4m8PqzcA4s9tQjESqhJG5eCLtUokgdGrgeKGH0tDCj2kW3Yx"
-    }
-  }).then(function (response) {
-    console.log("Restaurants");
-    console.log(response);
-  })
-
-};
-
-
-
-
 
 function buildResults() {
 
@@ -193,6 +188,7 @@ function buildResults() {
     return false;
   }
   console.log("We have all the data");
+  console.log(eventData.length);
 
   // event for loop starts here-----
 
@@ -201,24 +197,33 @@ function buildResults() {
     var eventName = (eventData[i].name.text);
     var eventStart = (eventData[i].start.local);
     var eventDescribe = (eventData[i].description.text);
+    var eventId = (eventData[i].id);
+    console.log("EventID " + eventId);
 
     // moment.js for converting "2018-09-23T08:00:00"
     // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
-    var startReformat = moment(eventStart).format("dddd, MMMM Do YYYY, h:mm a");
+    var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
+    var startTime = moment(eventStart).format("h:mm a");
 
     // using .slice to get snippet of event description
     var eventSnippet = (eventDescribe.slice(0, 260) + "...");
 
     var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'> <a href='event.html'>";
+    // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
+    // eventInfo += eventName;
+    // eventInfo += "</h3> <h2 class='row'>";
+    // eventInfo += startReformat;
+    // eventInfo += "</h2> <p class='row'>";
+    // eventInfo += eventSnippet;
+    // eventInfo += "</p> </div>";
+    var eventInfo = "<div class ='col-7 col-md-6 event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
-    eventInfo += "</a></h3> <h2 class='row'>";
-    eventInfo += startReformat;
-    eventInfo += "</h2> <p class='row'>";
+    eventInfo += "</a> </h2> <h3 class='row'>";
+    eventInfo += startDate + " @" + startTime;
+    eventInfo += "</h3> <p class='row'>";
     eventInfo += eventSnippet;
     eventInfo += "</p> </div>";
-
     console.log(eventInfo)
 
     var eventImage = "";
@@ -235,12 +240,20 @@ function buildResults() {
 
     console.log(imageRender);
 
-    var eventRender = $("<div class='row px-1 py-2 m-2 event-bord'>").append(imageRender)
+    if ((eventData.length) === 0) {
+
+     console.log("No events available!");
+      
+    } else {
+
+    var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
       .append(eventInfo).append(eventWeather);
 
     console.log(eventRender);
 
     $("#event-card").append(eventRender);
+
+    };
   };
   $("#event-card").show();
 };
@@ -277,6 +290,7 @@ $("#eventSearch").on("click", function (event) {
   $(dateDD).text("Date Range");
   $(dateDD).val("");
 
+  // SearchRestaurants();
 });
 
 
