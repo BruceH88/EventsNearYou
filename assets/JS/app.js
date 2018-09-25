@@ -208,7 +208,7 @@ function buildResults() {
     // using .slice to get snippet of event description
     var eventSnippet = (eventDescribe.slice(0, 260) + "...");
 
-    var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
+    var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
     // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
     // eventInfo += eventName;
@@ -217,7 +217,7 @@ function buildResults() {
     // eventInfo += "</h2> <p class='row'>";
     // eventInfo += eventSnippet;
     // eventInfo += "</p> </div>";
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
+    var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
     eventInfo += "</a> </h2> <h3 class='row'>";
     eventInfo += startDate + " @" + startTime;
@@ -234,9 +234,9 @@ function buildResults() {
       eventImage = (eventData[i].logo.original.url);
     }
 
-    var imageRender = "<div class='col-3 col-md-4'> <img src= ";
+    var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
     imageRender += eventImage;
-    imageRender += " class='img-fluid'> </div>";
+    imageRender += " class='img-fluid event-img'> </div>";
 
     console.log(imageRender);
 
@@ -246,7 +246,7 @@ function buildResults() {
       
     } else {
 
-    var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
+    var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
       .append(eventInfo).append(eventWeather);
 
     console.log(eventRender);

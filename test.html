@@ -8,7 +8,7 @@
     <!-- Link to Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
     <!-- Link to Fontawesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
     <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Muli" rel="stylesheet">
     <!-- Link to CSS -->
@@ -25,34 +25,33 @@
         <div class="navbar-collapse collapse" id="collapsingNavbar">
             <ul class="navbar-nav ml-auto mr-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="" data-target="#aboutModal" data-toggle="modal">About</a>
+                    <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="text-center my-3">
-        <div class="rounded mx-auto" id="event-img">
+    <div class="container">
+        <div class="jumbotron " id="event-img" style="background-image: https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F49748464%2F270169195099%2F1%2Foriginal.jpg?auto=compress&s=19c8168028e0295c0bca7e2224c11e48">
 
         </div>
     </div>
     <div class="container jumbo-content px-4 py-3">
-        <h1 class="text-center border-bottom" id="header">Event Name</h1>
-        <br>
+        <h1 class="text-center" id="header">Event Name</h1>
         <div class="row">
             <div class="col-12 col-sm-4 text-left">
-                <h4 class="text-center" id="event-date">September 28 2018</h4>
-                <h4 class="text-center" id="event-time">4:30pm</h4>
+                <h4 id="event-date">September 28 2018</h4>
+                <h4 id="event-time">4:30pm</h4>
             </div>
             <div class="col-12 col-sm-4 text-center"></div>
-            <div class="col-12 col-sm-4 text-right border rounded">
+            <div class="col-12 col-sm-4 text-right">
                 <div class="row">
                     <!-- Weather info goes below -->
-                    <div class="col-2 border-right">One</div>
-                    <div class="col-2 border-left border-right">Two</div>
-                    <div class="col-2 border-left border-right">Three</div>
-                    <div class="col-2 border-left border-right">Four</div>
-                    <div class="col-2 border-left border-right">Five</div>
-                    <div class="col-2 border-left">Six</div>
+                    <div class="col-2">One</div>
+                    <div class="col-2">Two</div>
+                    <div class="col-2">Three</div>
+                    <div class="col-2">Four</div>
+                    <div class="col-2">Five</div>
+                    <div class="col-2">Six</div>
                 </div>
             </div>
         </div>
@@ -60,7 +59,7 @@
         <br>
         <br>
         <br>
-        <div class="text-justify" id="event-description">
+        <div id="event-description">
             This is the description of an event. Doesn't this event sound fun? This is the description of an event. Doesn't this event
             sound fun? This is the description of an event. Doesn't this event sound fun? This is the description of an event.
             Doesn't this event sound fun? This is the description of an event. Doesn't this event sound fun?
@@ -93,42 +92,6 @@
         <br>
 
     </div>
-
-    <div id="aboutModal" class="modal fade" role="dialog">
-            <div class="modal-dialog bg-light">
-    
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">About</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-center">ENYware is the brainchild of three developers who wanted to simplify the process of finding something to do. Using the Eventbrite, Weatherbit, and Yelp APIs, as well as the Algolia CDN, ENYware makes the process as simple as 1 2 3.</p> <p class="text-center"> Want to see if there's anything exciting happening nearby? Just type in your city, and feel free to narrow it down with an event type. Wondering if you should break out that tank top or a light jacket? Each event comes loaded with specific weather info. Feeling peckish? Each event page comes with a few nearby restaurants.</p> <p class="text-center">Find things to do wherever you are, with <span id=tagline>Events Near You, Anywhere</span>.</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <footer class="page-footer bg-light py-4 mt-4">
-
-        <div class="footer-copyright container ">
-            <div class="row">
-                <div class="col-12 col-md-3"></div>
-                <div class="col-12 col-sm-6 text-center align-middle">
-                        © 2018 Copyright Bruce H, Peter F, and Thomson T
-                </div>
-                <div class="col-12 col-md-3 text-center">
-                        <a href="#" class="badge badge-light"><i class="fab fa-facebook-square"></i></a>
-                        <a href="#" class="badge badge-light"> <i class="fab fa-twitter-square"></i></a>
-                        <a href="#" class="badge badge-light"> <i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="badge badge-light"> <i class="fab fa-app-store-ios"></i></a>
-                        <a href="#" class="badge badge-light"> <i class="fab fa-android"></i></a>
-                </div>
-            </div>
-        </div>
-
-    </footer>
 
     <!-- Link to Moment.js should go here -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>

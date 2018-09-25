@@ -169,7 +169,7 @@ function buildResults() {
     }
 
   $('html head').find('title').text(eventName);
-  $('#event-img').append("<img src='" + eventImage +"' class='img-fluid'>");
+  $('#event-img').append("<img src='" + eventImage +"' class='img-fluid rounded mx-auto img-thumbnail' id='event-img-spec'>");
   $("#header").text(eventName);
   $("#event-date").text(startDate);
   $("#event-time").text(eventTime);
