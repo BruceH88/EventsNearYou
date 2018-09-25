@@ -9,7 +9,7 @@ var eventId = "";
 var hourWeatherData = null;
 var dayWeatherData = null;
 var eventData = null;
-var restaurantData = null;
+var foodData = null;
 
 // Define Objects
 
@@ -135,7 +135,7 @@ function searchRestaurants() {
   }).then(function (response) {
     console.log("Restaurants");
     console.log(response);
-    restaurantData = response.businesses;
+    foodData = response.businesses;
     buildResults();
   })
 
@@ -144,7 +144,7 @@ function searchRestaurants() {
 function buildResults() {
 
   console.log("in buildResults");
-  if (hourWeatherData == null || dayWeatherData == null || eventData == null || restaurantData == null) {
+  if (hourWeatherData == null || dayWeatherData == null || eventData == null || foodData == null) {
     return false;
   }
   console.log("We have all the data");
@@ -168,12 +168,27 @@ function buildResults() {
       eventImage = (eventData.logo.original.url);
     }
 
-  $('html head').find('title').text(eventName);
+  $('html head').find('title').html(eventName);
   $('#event-img').append("<img src='" + eventImage +"' class='img-fluid'>");
   $("#header").text(eventName);
   $("#event-date").text(startDate);
   $("#event-time").text(eventTime);
   $("#event-description").text(eventDescribe);
+
+  for ( i = 0; i < 5; i++) {
+
+    var foodName = (foodData[i].name);
+    var foodImage = (foodData[i].image_url);
+
+    var foodDiv = $("#food-name-" + [i]);
+    var foodImg = $("#food-img-" + [i]);
+
+    foodDiv.prepend(foodName);
+    foodImg.attr("src", foodImage);
+
+
+
+  }
 
 }
 
