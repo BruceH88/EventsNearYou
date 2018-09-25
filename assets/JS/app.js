@@ -219,13 +219,7 @@ function buildResults() {
 
     var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-    // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
-    // eventInfo += eventName;
-    // eventInfo += "</h3> <h2 class='row'>";
-    // eventInfo += startReformat;
-    // eventInfo += "</h2> <p class='row'>";
-    // eventInfo += eventSnippet;
-    // eventInfo += "</p> </div>";
+
     var eventInfo = "<div class ='col-7 col-md-6 event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
     eventInfo += "</a> </h2> <h3 class='row'>";
