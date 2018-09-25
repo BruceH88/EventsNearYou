@@ -8,7 +8,7 @@ var thisWeekendDD = $("#this-weekend");
 var nextWeekDD = $("#next-week");
 var dateDD = $("#dropdownMenuButton");
 
-var $eventInput =  $("#event-input");
+var $eventInput = $("#event-input");
 var $addressInput = $("#address-input");
 var $eventCard = $("#event-card");
 
@@ -130,8 +130,8 @@ var weather = {
   });
 })();
 
-$( document ).ready(function() {
-    $("#event-card").hide();
+$(document).ready(function () {
+  $("#event-card").hide();
 });
 
 // Eventbrite API 
@@ -182,9 +182,15 @@ function buildResults() {
     // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
     var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
     var startTime = moment(eventStart).format("h:mm a");
-
+    var eventSnippet = "";
     // using .slice to get snippet of event description
-    var eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    if (eventDescribe === null) {
+      eventSnippet = "No description available."
+    } else if (eventDescribe.length > 260) {
+      eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    } else {
+      eventSnippet = eventDescribe;
+    }
 
     var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
@@ -220,16 +226,16 @@ function buildResults() {
 
     if ((eventData.length) === 0) {
 
-     console.log("No events available!");
-      
+      console.log("No events available!");
+
     } else {
 
-    var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
-      .append(eventInfo).append(eventWeather);
+      var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
+        .append(eventInfo).append(eventWeather);
 
-    console.log(eventRender);
+      console.log(eventRender);
 
-    $eventCard.append(eventRender);
+      $eventCard.append(eventRender);
 
     };
   };
@@ -250,7 +256,7 @@ $("#eventSearch").on("click", function (event) {
 
   searchTerm = $eventInput.val();
   searchLoc = $addressInput.val();
-  if(searchLoc === "New York, United States of America"){
+  if (searchLoc === "New York, United States of America") {
     searchLoc = "New York, New York, United States of America"
   }
   searchRange = dateDD.val();
