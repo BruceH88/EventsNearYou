@@ -65,7 +65,7 @@ var weather = {
       console.log(weatherData[index]);
       var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").text(weatherData[index].temp + "° F");
+      var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
       var weatherDiv = $("<div>");
       weatherDiv.append(iconImg);
       weatherDiv.append(tempP);
@@ -253,6 +253,10 @@ function buildResults() {
 
     $("#event-card").append(eventRender);
   };
+  console.log("loop end i - " + i);
+  if (i === 0) {
+    $("#event-card").text("No events found.");
+  }
 
 };
 
@@ -287,7 +291,6 @@ $("#eventSearch").on("click", function (event) {
   $(dateDD).text("Date Range");
   $(dateDD).val("");
 
-  SearchRestaurants();
 });
 
 

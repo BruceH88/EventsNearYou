@@ -47,7 +47,7 @@ var weather = {
       console.log(weatherData[index]);
       var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").html(weatherData[index].temp + "° F");
+      var tempP = $("<p>").html(Math.round(weatherData[index].temp) + "° F");
       var weatherDiv = $("<div>");
       weatherDiv.append(iconImg);
       weatherDiv.append(tempP);
