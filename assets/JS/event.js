@@ -112,6 +112,7 @@ var getEventById = function () {
     method: "GET"
 
   }).then(function (response) {
+    console.log("Event");
     console.log(response);
     eventData = response;
 
@@ -122,7 +123,7 @@ var getEventById = function () {
 };
 
 function searchRestaurants() {
-  var queryURL = "https://api.yelp.com/v3/businesses/search?location=new+brunswick+nj";
+  var queryURL = "https://api.yelp.com/v3/businesses/search?location=" + searchLoc;
 
   var corsURL = "https://cors-anywhere.herokuapp.com/" + queryURL
   $.ajax({
@@ -148,6 +149,31 @@ function buildResults() {
   }
   console.log("We have all the data");
 
+  // EVENT BUILD
+  var eventName = (eventData.name.text);
+  var eventStart = (eventData.start.local);
+  var eventEnd = (eventData.end.local);
+  var eventDescribe = (eventData.description.text);
+
+  var startDate = moment(eventStart).format("dddd, MMMM Do YYYY");
+  var startTime = moment(eventStart).format("h:mm a");
+  var endTime = moment(eventEnd).format("h:mm a");
+  var eventTime = startTime + " - " + endTime;
+
+  var eventImage = "";
+    // CYA for missing event image
+    if ((eventData.logo) == null) {
+      eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
+    } else {
+      eventImage = (eventData.logo.original.url);
+    }
+
+  $('html head').find('title').text(eventName);
+  $('#event-img').append("<img src='" + eventImage +"' class='img-fluid'>");
+  $("#header").text(eventName);
+  $("#event-date").text(startDate);
+  $("#event-time").text(eventTime);
+  $("#event-description").text(eventDescribe);
 
 }
 
