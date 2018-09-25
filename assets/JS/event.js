@@ -8,6 +8,7 @@ var $eventDate = $("#event-date");
 var $eventTime = $("#event-time");
 var $eventDesc = $("#event-description");
 var $eventWeather = $("#event-weather");
+var $ebriteURL = $("#ebrite-link");
 
 // define variables
 var searchLoc = "";
@@ -210,6 +211,7 @@ function buildResults() {
   var eventStart = (eventData.start.local);
   var eventEnd = (eventData.end.local);
   var eventDescribe = (eventData.description.text);
+  var eventURL = (eventData.url);
 
   var startDate = moment(eventStart).format("dddd, MMMM Do YYYY");
   var startTime = moment(eventStart).format("h:mm a");
@@ -219,30 +221,33 @@ function buildResults() {
   var eventImage = "";
   // CYA for missing event image
   if ((eventData.logo) == null) {
-    eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
+    eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
   } else {
     eventImage = (eventData.logo.original.url);
   }
 
   $htmlHead.find('title').html(eventName);
-  $eventImg.append("<img src='" + eventImage + "' class='img-fluid'>");
+  $eventImg.append("<img src='" + eventImage + "' class='img-fluid rounded mx-auto img-thumbnail'>");
   $header.text(eventName);
   $eventDate.text(startDate);
   $eventTime.text(eventTime);
   $eventDesc.text(eventDescribe);
   weather.getEventWeather(eventStart,eventEnd);
+  $ebriteURL.attr("href", eventURL);
 
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < 6; i++) {
 
     var foodName = (foodData[i].name);
     var foodImage = (foodData[i].image_url);
+    var foodLinks = (foodData[i].alias);
 
     var foodDiv = $("#food-name-" + [i]);
     var foodImg = $("#food-img-" + [i]);
+    var foodBtn = $("#food-link-" + [i]);
 
-    foodDiv.prepend(foodName);
+    foodDiv.text(foodName);
     foodImg.attr("src", foodImage);
-
+    foodBtn.attr("href", "https://www.yelp.com/biz/" + foodLinks);
   }
 
 }

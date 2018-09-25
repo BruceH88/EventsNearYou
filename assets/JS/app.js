@@ -66,7 +66,7 @@ var weather = {
 
     if (index >= 0 && index < weatherData.length) {
       console.log(weatherData[index]);
-      var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+      var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
       var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
       var weatherDiv = $("<div>");
@@ -130,18 +130,9 @@ var weather = {
   });
 })();
 
-window.onscroll = function () { myFunction() };
-
-var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
+$( document ).ready(function() {
+    $("#event-card").hide();
+});
 
 // Eventbrite API 
 var searchEvents = function () {
@@ -195,10 +186,16 @@ function buildResults() {
     // using .slice to get snippet of event description
     var eventSnippet = (eventDescribe.slice(0, 260) + "...");
 
-    var eventWeather = $("<div class='col-2 weather'>").append(weather.getBasicWeather(eventStart));
+    var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-
-    var eventInfo = "<div class ='col-7 col-md-6 event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
+    // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
+    // eventInfo += eventName;
+    // eventInfo += "</h3> <h2 class='row'>";
+    // eventInfo += startReformat;
+    // eventInfo += "</h2> <p class='row'>";
+    // eventInfo += eventSnippet;
+    // eventInfo += "</p> </div>";
+    var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
     eventInfo += "</a> </h2> <h3 class='row'>";
     eventInfo += startDate + " @" + startTime;
@@ -210,14 +207,14 @@ function buildResults() {
     var eventImage = "";
     // CYA for missing event image
     if ((eventData[i].logo) == null) {
-      eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
+      eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
     } else {
       eventImage = (eventData[i].logo.original.url);
     }
 
-    var imageRender = "<div class='col-3 col-md-4'> <img src= ";
+    var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
     imageRender += eventImage;
-    imageRender += " class=''> </div>";
+    imageRender += " class='img-fluid event-img'> </div>";
 
     console.log(imageRender);
 
@@ -227,7 +224,7 @@ function buildResults() {
       
     } else {
 
-    var eventRender = $("<div class='row p-1 m-2'>").append(imageRender)
+    var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
       .append(eventInfo).append(eventWeather);
 
     console.log(eventRender);
@@ -236,13 +233,13 @@ function buildResults() {
 
     };
   };
+  $("#event-card").show();
   console.log("loop end i - " + i);
   if (i === 0) {
     $eventCard.text("No events found.");
   }
 
 };
-
 
 
 $('.backgroundsettings').attr('id', randBG);
@@ -261,6 +258,7 @@ $("#eventSearch").on("click", function (event) {
   console.log(searchTerm);
   console.log(searchLoc);
   console.log(searchRange);
+
 
   if (searchLoc !== holdSearchLoc) {
     hourWeatherData = null;
@@ -303,5 +301,4 @@ nextWeekDD.on("click", function () {
   dateDD.text("Next Week");
   dateDD.val("next_week");
 });
-
 
