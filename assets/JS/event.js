@@ -154,11 +154,13 @@ function buildResults() {
   var eventStart = (eventData.start.local);
   var eventEnd = (eventData.end.local);
   var eventDescribe = (eventData.description.text);
+  var eventLink = (eventData.url);
 
   var startDate = moment(eventStart).format("dddd, MMMM Do YYYY");
   var startTime = moment(eventStart).format("h:mm a");
   var endTime = moment(eventEnd).format("h:mm a");
   var eventTime = startTime + " - " + endTime;
+  var eventGo = "<a href='" + eventLink + "' target='_blank'>" + eventName + "</a>";
 
   var eventImage = "";
     // CYA for missing event image
@@ -170,7 +172,7 @@ function buildResults() {
 
   $('html head').find('title').html(eventName);
   $('#event-img').append("<img src='" + eventImage +"' class='img-fluid'>");
-  $("#header").text(eventName);
+  $("#header").html(eventGo);
   $("#event-date").text(startDate);
   $("#event-time").text(eventTime);
   $("#event-description").text(eventDescribe);
@@ -179,12 +181,17 @@ function buildResults() {
 
     var foodName = (foodData[i].name);
     var foodImage = (foodData[i].image_url);
+    var foodLink = (foodData[i].url);
 
     var foodDiv = $("#food-name-" + [i]);
     var foodImg = $("#food-img-" + [i]);
+    var foodGo = $("food-link-" + [i]);
 
     foodDiv.prepend(foodName);
     foodImg.attr("src", foodImage);
+    foodGo.attr("href", foodLink);
+
+    console.log("Yelp URLs: " + foodLink[i]);
 
 
 
