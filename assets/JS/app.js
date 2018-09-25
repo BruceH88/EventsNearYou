@@ -183,18 +183,20 @@ function buildResults() {
     var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
     var startTime = moment(eventStart).format("h:mm a");
 
+    var eventSnippet = "";
     // using .slice to get snippet of event description
     var eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    if (eventDescribe === null) {
+      eventSnippet = "No description available."
+    } else if (eventDescribe.length > 260) {
+      eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    } else {
+      eventSnippet = eventDescribe;
+    }
 
     var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
     // compile event and weather data to write to DOM
-    // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
-    // eventInfo += eventName;
-    // eventInfo += "</h3> <h2 class='row'>";
-    // eventInfo += startReformat;
-    // eventInfo += "</h2> <p class='row'>";
-    // eventInfo += eventSnippet;
-    // eventInfo += "</p> </div>";
+
     var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
     eventInfo += eventName;
     eventInfo += "</a> </h2> <h3 class='row'>";
