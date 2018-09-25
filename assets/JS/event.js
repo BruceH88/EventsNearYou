@@ -8,7 +8,6 @@ var $eventDate = $("#event-date");
 var $eventTime = $("#event-time");
 var $eventDesc = $("#event-description");
 var $eventWeather = $("#event-weather");
-var $ebriteURL = $("#ebrite-link");
 
 // define variables
 var searchLoc = "";
