@@ -8,6 +8,9 @@ var thisWeekendDD = $("#this-weekend");
 var nextWeekDD = $("#next-week");
 var dateDD = $("#dropdownMenuButton");
 
+var $eventInput =  $("#event-input");
+var $addressInput = $("#address-input");
+var $eventCard = $("#event-card");
 
 // Define variables
 var bgArr = [
@@ -65,7 +68,7 @@ var weather = {
       console.log(weatherData[index]);
       var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
       iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").text(weatherData[index].temp + "° F");
+      var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
       var weatherDiv = $("<div>");
       weatherDiv.append(iconImg);
       weatherDiv.append(tempP);
@@ -129,31 +132,6 @@ var weather = {
 
 $( document ).ready(function() {
     $("#event-card").hide();
-});
-
-$(todayDD).on("click", function () {
-  $(dateDD).text("Today");
-  $(dateDD).val("today");
-});
-
-$(tomorrowDD).on("click", function () {
-  $(dateDD).text("Tomorrow");
-  $(dateDD).val("tomorrow");
-});
-
-$(thisWeekDD).on("click", function () {
-  $(dateDD).text("This Week");
-  $(dateDD).val("this_week");
-});
-
-$(thisWeekendDD).on("click", function () {
-  $(dateDD).text("This Weekend");
-  $(dateDD).val("this_weekend");
-});
-
-$(nextWeekDD).on("click", function () {
-  $(dateDD).text("Next Week");
-  $(dateDD).val("next_week");
 });
 
 // Eventbrite API 
@@ -229,7 +207,7 @@ function buildResults() {
     var eventImage = "";
     // CYA for missing event image
     if ((eventData[i].logo) == null) {
-      eventImage = "https://via.placeholder.com/300x225?text=Sorry!+This+event+has+no+picture"
+      eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
     } else {
       eventImage = (eventData[i].logo.original.url);
     }
@@ -251,11 +229,16 @@ function buildResults() {
 
     console.log(eventRender);
 
-    $("#event-card").append(eventRender);
+    $eventCard.append(eventRender);
 
     };
   };
   $("#event-card").show();
+  console.log("loop end i - " + i);
+  if (i === 0) {
+    $eventCard.text("No events found.");
+  }
+
 };
 
 
@@ -263,11 +246,14 @@ $('.backgroundsettings').attr('id', randBG);
 
 $("#eventSearch").on("click", function (event) {
 
-  $("#event-card").empty();
+  $eventCard.empty();
 
-  searchTerm = $("#event-input").val();
-  searchLoc = $("#address-input").val();
-  searchRange = $("#dropdownMenuButton").val();
+  searchTerm = $eventInput.val();
+  searchLoc = $addressInput.val();
+  if(searchLoc === "New York, United States of America"){
+    searchLoc = "New York, New York, United States of America"
+  }
+  searchRange = dateDD.val();
 
   console.log(searchTerm);
   console.log(searchLoc);
@@ -284,13 +270,35 @@ $("#eventSearch").on("click", function (event) {
   searchEvents();
   holdSearchLoc = searchLoc;
 
+  $eventInput.val("");
+  $addressInput.val("");
+  dateDD.text("Date Range");
+  dateDD.val("");
 
-  $("#event-input").val("");
-  $("#address-input").val("");
-  $(dateDD).text("Date Range");
-  $(dateDD).val("");
-
-  // SearchRestaurants();
 });
 
+todayDD.on("click", function () {
+  dateDD.text("Today");
+  dateDD.val("today");
+});
+
+tomorrowDD.on("click", function () {
+  dateDD.text("Tomorrow");
+  dateDD.val("tomorrow");
+});
+
+thisWeekDD.on("click", function () {
+  dateDD.text("This Week");
+  dateDD.val("this_week");
+});
+
+thisWeekendDD.on("click", function () {
+  dateDD.text("This Weekend");
+  dateDD.val("this_weekend");
+});
+
+nextWeekDD.on("click", function () {
+  dateDD.text("Next Week");
+  dateDD.val("next_week");
+});
 

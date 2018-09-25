@@ -2,8 +2,8 @@ body {
     font-size: 16px;
     font-family: 'Muli', sans-serif;
     background: #0F2027;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #2C5364 #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364 #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 footer {
@@ -12,13 +12,38 @@ footer {
     width:100%;
 }
 
+h6 {
+    font-style: italic;
+}
+
+h6 a:link {
+    color: #CC1441;
+}
+
+h6 a:visited {
+    color: #CC1441;
+}
+
+h6 a:hover {
+    color: #CC1441;
+}
+
+h6 a:active {
+    color: #FF4E40;
+}
+
 .fab {
     font-size: 40px;
     /* color:#203A43; */
     color: #0F2027; 
 }
 
-
+.card-body {
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #f1f1f1;
+}
 
 #event-card a:link {
     color: #CC1441;
@@ -87,6 +112,11 @@ footer {
 
 .img-thumbnail {
     max-height: 450px;
+}
+
+.rest-flow {
+    max-height: 175px;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 575px) {
