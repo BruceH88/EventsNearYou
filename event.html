@@ -8,7 +8,7 @@
     <!-- Link to Bootstrap -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
     <!-- Link to Fontawesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <!-- Link to Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Muli" rel="stylesheet">
     <!-- Link to CSS -->
@@ -17,26 +17,35 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="jumbotron " id="event-img">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand abs" href="index.html">ENYware</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="navbar-nav ml-auto mr-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="" data-target="#aboutModal" data-toggle="modal">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center my-3">
+        <div class="rounded mx-auto" id="event-img">
 
         </div>
-        <h1 class="text-center" id="header">Event Name</h1>
-        <div class="row">
+    </div>
+    <div class="container jumbo-content px-4 py-3">
+        <h1 class="text-center border-bottom" id="header">Event Name</h1>
+        <br>
+        <div class="row border-bottom">
             <div class="col-12 col-sm-4 text-left">
-                <h4 id="event-date">September 28 2018</h4>
-                <h4 id="event-time">4:30pm</h4>
+                <h4 class="text-center" id="event-date">September 28 2018</h4>
+                <h4 class="text-center" id="event-time">4:30pm</h4>
             </div>
             <div class="col-12 col-sm-4 text-center"></div>
             <div class="col-12 col-sm-4 text-right">
-                <div class="row">
-                    <!-- Weather info goes below -->
-                    <div class="col-2">One</div>
-                    <div class="col-2">Two</div>
-                    <div class="col-2">Three</div>
-                    <div class="col-2">Four</div>
-                    <div class="col-2">Five</div>
-                    <div class="col-2">Six</div>
+                <div class="row text-center mx-auto" id="event-weather">
                 </div>
             </div>
         </div>
@@ -44,46 +53,125 @@
         <br>
         <br>
         <br>
-        <div id="event-description">
+        <div class="text-justify" id="event-description">
             This is the description of an event. Doesn't this event sound fun? This is the description of an event. Doesn't this event
             sound fun? This is the description of an event. Doesn't this event sound fun? This is the description of an event.
             Doesn't this event sound fun? This is the description of an event. Doesn't this event sound fun?
         </div>
 
-        <br> <br> <br>
+        <br> <h6 class="text-center">Want to see the full event on Eventbrite? Click <a href="#" target="_blank" id="ebrite-link">here</a></h6> <br>
 
 
-        <h5>Here are some restaurants nearby you might enjoy!</h5>
-        <div class="row">
-            <div id="food-name-0" class="col-12 col-sm-3 col-md-2">
-                <a id="food-link-4" href="" target="_blank">
-                    <img id="food-img-0" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant" class="img-fluid responsive">
-                </a>
+        <h5 class="border-bottom py-1">Here are some restaurants nearby you might enjoy!</h5>
+        <br>
+        <div class="row text-center justify-content-around">
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                <div class="rest-flow">
+                    <img class="card-img-top responsive" id="food-img-0" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="food-name-0">Card title</h5>
+
+                    <a href="#" class="btn btn-light align-text-bottom" id="food-link-0" target="_blank">Check it out!</a>
+                </div>
             </div>
-            <div id="food-name-1" class="col-12 col-sm-3 col-md-2">
-                <a id="food-link-1" href="" target="_blank">
-                    <img id="food-img-1" src="assets/Images/exampleimages/rest2.jpeg" alt="Restaurant" class="img-fluid responsive">
-                </a>
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                <div class="rest-flow">
+                    <img class="card-img-top responsive" id="food-img-1" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="food-name-1">Card title</h5>
+
+                    <a href="#" class="btn btn-light align-text-bottom" id="food-link-1" target="_blank">Check it out!</a>
+                </div>
             </div>
-            <div id="food-name-2" class="col-12 col-sm-3 col-md-2">
-                <a id="food-link-2" href="" target="_blank">
-                    <img id="food-img-2" src="assets/Images/exampleimages/rest3.jpeg" alt="Restaurant" class="img-fluid responsive">
-                </a>
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                <div class="rest-flow">
+                    <img class="card-img-top responsive" id="food-img-2" src="assets/Images/exampleimages/rest2.jpeg" alt="Restaurant">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="food-name-2">Card title</h5>
+
+                    <a href="#" class="btn btn-light align-text-bottom" id="food-link-2" target="_blank">Check it out!</a>
+                </div>
             </div>
-            <div id="food-name-3" class="col-12 col-sm-3 col-md-2">
-                <a id="food-link-3" href="" target="_blank">
-                    <img id="food-img-3" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant" class="img-fluid responsive">
-                </a>
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                <div class="rest-flow">
+                    <img class="card-img-top responsive" id="food-img-3" src="assets/Images/exampleimages/rest3.jpeg" alt="Restaurant">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="food-name-3">Card title</h5>
+
+                    <a href="#" class="btn btn-light align-text-bottom" id="food-link-3" target="_blank">Check it out!</a>
+                </div>
             </div>
-            <div id="food-name-4" class="col-12 col-sm-3 col-md-2">
-                <a id="food-link-4" href="" target="_blank">
-                    <img id="food-img-4" src="assets/Images/exampleimages/rest2.jpeg" alt="Restaurant" class="img-fluid responsive">
-                </a>
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                <div class="rest-flow">
+                    <img class="card-img-top responsive" id="food-img-4" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" id="food-name-4">Card title</h5>
+
+                    <a href="#" class="btn btn-light align-text-bottom" id="food-link-4" target="_blank">Check it out!</a>
+                </div>
+            </div>
+            <div class="card col-12 col-sm-5 col-lg-3 mx-1 my-2 px-0 ">
+                    <div class="rest-flow">
+                        <img class="card-img-top responsive" id="food-img-5" src="assets/Images/exampleimages/rest1.jpeg" alt="Restaurant">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="food-name-5">Card title</h5>
+    
+                        <a href="#" class="btn btn-light align-text-bottom" id="food-link-5" target="_blank">Check it out!</a>
+                    </div>
+                </div>
+        </div>
+        <br>
+
+    </div>
+
+    <div id="aboutModal" class="modal fade" role="dialog">
+        <div class="modal-dialog bg-light">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">About</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">ENYware is the brainchild of three developers who wanted to simplify the process
+                        of finding something to do. Using the Eventbrite, Weatherbit, and Yelp APIs, as well as the Algolia
+                        CDN, ENYware makes the process as simple as 1 2 3.</p>
+                    <p class="text-center"> Want to see if there's anything exciting happening nearby? Just type in your
+                        city, and feel free to narrow it down with an event type. Wondering if you should break out that
+                        tank top or a light jacket? Each event comes loaded with specific weather info. Feeling peckish?
+                        Each event page comes with a few nearby restaurants.</p>
+                    <p class="text-center">Find things to do wherever you are, with <span id=tagline>Events Near You, Anywhere</span>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="page-footer bg-light py-4 mt-4">
+
+        <div class="footer-copyright container ">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-sm-6 text-center align-middle">
+                    © 2018 Copyright Bruce H, Peter F, and Thomson T
+                </div>
+                <div class="col-12 col-md-3 text-center">
+                        <a href="#" class="badge badge-light"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" class="badge badge-light"> <i class="fab fa-twitter-square"></i></a>
+                        <a href="#" class="badge badge-light"> <i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="badge badge-light"> <i class="fab fa-github-square"></i></a>
+
+                </div>
             </div>
         </div>
 
-
-    </div>
+    </footer>
 
     <!-- Link to Moment.js should go here -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
