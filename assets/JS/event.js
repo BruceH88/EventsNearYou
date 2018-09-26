@@ -56,7 +56,11 @@ var weather = {
       console.log("Index " + index);
       weatherData = dayWeatherData;
       if (index > 16) {
-        index = -1;
+        if (!hourDuration) {
+          index = (index % 16) - 2;
+        } else {
+          index = -1;
+        }
       }
     }
     console.log(weatherData);
@@ -87,10 +91,7 @@ var weather = {
         }
       }
       // blank out the other weather
-      for (var i = count; i <= 6; i++) {
-        var blankDiv = $("<div class='col-2'>");
-        $eventWeather.prepend(blankDiv);
-      }
+      
     } else {
       // we did  not get the weather data or it is too far in the future
       var noWeather = $("<div>").text("Forecast not available.")
@@ -98,22 +99,21 @@ var weather = {
     }
 
   },
-
-  createWeatherDiv: function (dataPoint, showDate) {
-    console.log("Weather dataPoint");
-    console.log(dataPoint);
-    var iconImg = $("<img class='weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + dataPoint.weather.icon + ".png");
-    iconImg.attr("alt", dataPoint.weather.description);
-    var tempP = $("<p>").html(Math.round(dataPoint.temp) + "° F");
-    var weatherDiv = $("<div 'col-2'>");
-    if (showDate) {
-      var dateP = $("<p>").text(moment(dataPoint.datetime, "YYYY-MM-DD").format("MM/DD"));
-      weatherDiv.append(dateP);
-    }
-    weatherDiv.append(iconImg);
-    weatherDiv.append(tempP);
-    return weatherDiv;
-  },
+createWeatherDiv: function (dataPoint, showDate) {
+   console.log("Weather dataPoint");
+   console.log(dataPoint);
+   var iconImg = $("<img class='img-fluid weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + dataPoint.weather.icon + ".png");
+   iconImg.attr("alt", dataPoint.weather.description);
+   var tempP = $("<p>").html(Math.round(dataPoint.temp) + "° F");
+   var weatherDiv = $("<div class='col-sm-6 col-md-3 text-center px-0 mx-auto'>");
+   if (showDate) {
+     var dateP = $("<p>").text(moment(dataPoint.datetime, "YYYY-MM-DD").format("MM/DD"));
+     weatherDiv.append(dateP);
+   }
+   weatherDiv.append(iconImg);
+   weatherDiv.append(tempP);
+   return weatherDiv;
+ },
 
   search3hourWeather: function () {
     var queryURL = "https://api.weatherbit.io/v2.0/forecast/3hourly?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
@@ -198,6 +198,7 @@ function searchRestaurants() {
 };
 
 // define functions
+
 function buildResults() {
 
   console.log("in buildResults");
@@ -232,14 +233,14 @@ function buildResults() {
   $eventDate.text(startDate);
   $eventTime.text(eventTime);
   $eventDesc.text(eventDescribe);
-  weather.getEventWeather(eventStart,eventEnd);
+  weather.getEventWeather(eventStart, eventEnd);
   $ebriteURL.attr("href", eventURL);
 
   for (i = 0; i < 6; i++) {
 
     var foodName = (foodData[i].name);
     var foodImage = (foodData[i].image_url);
-    var foodLinks = (foodData[i].alias);
+    var foodLinks = (foodData[i].url);
 
     var foodDiv = $("#food-name-" + [i]);
     var foodImg = $("#food-img-" + [i]);
@@ -247,7 +248,7 @@ function buildResults() {
 
     foodDiv.text(foodName);
     foodImg.attr("src", foodImage);
-    foodBtn.attr("href", "https://www.yelp.com/biz/" + foodLinks);
+    foodBtn.attr("href", foodLinks);
   }
 
 }
@@ -269,6 +270,14 @@ function getHashParams() {
 
 
 $(document).ready(function () {
+
+
+  $("#page-content").hide();
+  setTimeout(
+    function() {
+      $("#loading-gif").hide();
+      $("#page-content").show();
+    }, 2500);
 
   var params = getHashParams();
   console.log(params);
