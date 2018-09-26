@@ -8,17 +8,17 @@ var thisWeekendDD = $("#this-weekend");
 var nextWeekDD = $("#next-week");
 var dateDD = $("#dropdownMenuButton");
 
-var $eventInput =  $("#event-input");
+var $eventInput = $("#event-input");
 var $addressInput = $("#address-input");
 var $eventCard = $("#event-card");
 
 // Define variables
 var bgArr = [
-  "background1",
-  "background2",
-  "background3",
-  "background4",
-  "background5"
+    "background1",
+    "background2",
+    "background3",
+    "background4",
+    "background5"
 ];
 var randBG = bgArr[Math.floor(Math.random() * bgArr.length)];
 
@@ -36,124 +36,124 @@ var eventData = null;
 var weather = {
 
 
-  getBasicWeather: function (eventTime) {
-    // eventTime formatted as 2018-09-23T08:00:00
-    var eventStart = moment(eventTime, "YYYY-MM-DD hh:mm:ss");
-    console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
-    var index = 0;
-    var curTime = moment();
-    var hourDiff = eventStart.diff(curTime, 'hours');
-    var dayDiff = eventStart.diff(curTime, 'days');
-    console.log("Diff " + hourDiff);
-    if (hourDiff < 1) {
-      index = 0;
-    } else {
-      index = Math.floor(parseInt(hourDiff) / 3);
-    }
-    console.log("Index " + index);
-    var weatherData = null;
-    if (index <= 40) {
-      weatherData = hourWeatherData;
-    } else {
-      index = parseInt(dayDiff);
-      console.log("Index " + index);
-      weatherData = dayWeatherData;
-      if (index > 16) {
-        index = -1;
-      }
-    }
-    console.log(weatherData);
-
-    if (index >= 0 && index < weatherData.length) {
-      console.log(weatherData[index]);
-      var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
-      iconImg.attr("alt", weatherData[index].weather.description);
-      var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
-      var weatherDiv = $("<div>");
-      weatherDiv.append(iconImg);
-      weatherDiv.append(tempP);
-      return weatherDiv;
-    } else {
-      var noWeather = $("<div>").text("Forecast not available.")
-      return noWeather;
-    }
-
-  },
-
-  search3hourWeather: function () {
-    var queryURL = "https://api.weatherbit.io/v2.0/forecast/3hourly?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
-
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-      .then(function (response) {
-        if (typeof response === "undefined") {
-          hourWeatherData = [];
+    getBasicWeather: function (eventTime) {
+        // eventTime formatted as 2018-09-23T08:00:00
+        var eventStart = moment(eventTime, "YYYY-MM-DD hh:mm:ss");
+        console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
+        var index = 0;
+        var curTime = moment();
+        var hourDiff = eventStart.diff(curTime, 'hours');
+        var dayDiff = eventStart.diff(curTime, 'days');
+        console.log("Diff " + hourDiff);
+        if (hourDiff < 1) {
+            index = 0;
         } else {
-          hourWeatherData = response.data;
+            index = Math.floor(parseInt(hourDiff) / 3);
         }
-        console.log(hourWeatherData);
-        buildResults();
-
-      });
-  },
-
-  search1DayWeather: function () {
-    var queryURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
-
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-      .then(function (response) {
-        if (typeof response === "undefined") {
-          dayWeatherData = [];
+        console.log("Index " + index);
+        var weatherData = null;
+        if (index <= 40) {
+            weatherData = hourWeatherData;
         } else {
-          dayWeatherData = response.data;
+            index = parseInt(dayDiff);
+            console.log("Index " + index);
+            weatherData = dayWeatherData;
+            if (index > 16) {
+                index = -1;
+            }
         }
-        console.log(dayWeatherData);
-        buildResults();
+        console.log(weatherData);
 
-      });
-  },
+        if (index >= 0 && index < weatherData.length) {
+            console.log(weatherData[index]);
+            var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+            iconImg.attr("alt", weatherData[index].weather.description);
+            var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
+            var weatherDiv = $("<div>");
+            weatherDiv.append(iconImg);
+            weatherDiv.append(tempP);
+            return weatherDiv;
+        } else {
+            var noWeather = $("<div>").text("Forecast not available.")
+            return noWeather;
+        }
+
+    },
+
+    search3hourWeather: function () {
+        var queryURL = "https://api.weatherbit.io/v2.0/forecast/3hourly?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                if (typeof response === "undefined") {
+                    hourWeatherData = [];
+                } else {
+                    hourWeatherData = response.data;
+                }
+                console.log(hourWeatherData);
+                buildResults();
+
+            });
+    },
+
+    search1DayWeather: function () {
+        var queryURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=" + WeatherAPIKey + "&units=I&city=" + searchLoc;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                if (typeof response === "undefined") {
+                    dayWeatherData = [];
+                } else {
+                    dayWeatherData = response.data;
+                }
+                console.log(dayWeatherData);
+                buildResults();
+
+            });
+    },
 };
 
 
 
 // Define functions
 (function () {
-  var placesAutocomplete = places({
-    container: document.querySelector('#address-input'),
-    aroundLatLngViaIP: false,
+    var placesAutocomplete = places({
+        container: document.querySelector('#address-input'),
+        aroundLatLngViaIP: false,
 
-  });
+    });
 })();
 
-$( document ).ready(function() {
+$(document).ready(function () {
     $("#event-card").hide();
 });
 
 // Eventbrite API 
 var searchEvents = function () {
 
-  var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc + "&&start_date.keyword=" + searchRange;
+    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?token=FC6LKU64DWMREUUXI5CZ&&q=" + searchTerm + "&&location.address=" + searchLoc + "&&start_date.keyword=" + searchRange;
 
-  // var queryURL = "https://www.eventbriteapi.com/v3/events/" + eventId +"/?token=FC6LKU64DWMREUUXI5CZ"
-  // console.log(queryURL);
+    // var queryURL = "https://www.eventbriteapi.com/v3/events/" + eventId +"/?token=FC6LKU64DWMREUUXI5CZ"
+    // console.log(queryURL);
 
-  $.ajax({
+    $.ajax({
 
-    url: queryURL,
-    method: "GET"
+        url: queryURL,
+        method: "GET"
 
-  }).then(function (response) {
-    console.log(response);
-    eventData = response.events;
+    }).then(function (response) {
+        console.log(response);
+        eventData = response.events;
 
-    buildResults();
+        buildResults();
 
-  })
+    })
 
 };
 
@@ -213,33 +213,34 @@ function buildResults() {
     } else {
       eventImage = (eventData[i].logo.original.url);
     }
+    
 
-    var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
-    imageRender += eventImage;
-    imageRender += " class='img-fluid event-img'> </div>";
+        var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
+        imageRender += eventImage;
+        imageRender += " class='img-fluid event-img'> </div>";
 
-    console.log(imageRender);
+        console.log(imageRender);
 
-    if ((eventData.length) === 0) {
+        if ((eventData.length) === 0) {
 
-     console.log("No events available!");
-      
-    } else {
+            console.log("No events available!");
 
-    var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
-      .append(eventInfo).append(eventWeather);
+        } else {
 
-    console.log(eventRender);
+            var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
+                .append(eventInfo).append(eventWeather);
 
-    $eventCard.append(eventRender);
+            console.log(eventRender);
 
+            $eventCard.append(eventRender);
+
+        };
     };
-  };
-  $("#event-card").show();
-  console.log("loop end i - " + i);
-  if (i === 0) {
-    $eventCard.text("No events found.");
-  }
+    $("#event-card").show();
+    console.log("loop end i - " + i);
+    if (i === 0) {
+        $eventCard.text("No events found.");
+    }
 
 };
 
@@ -248,59 +249,59 @@ $('.backgroundsettings').attr('id', randBG);
 
 $("#eventSearch").on("click", function (event) {
 
-  $eventCard.empty();
+    $eventCard.empty();
 
-  searchTerm = $eventInput.val();
-  searchLoc = $addressInput.val();
-  if(searchLoc === "New York, United States of America"){
-    searchLoc = "New York, New York, United States of America"
-  }
-  searchRange = dateDD.val();
+    searchTerm = $eventInput.val();
+    searchLoc = $addressInput.val();
+    if (searchLoc === "New York, United States of America") {
+        searchLoc = "New York, New York, United States of America"
+    }
+    searchRange = dateDD.val();
 
-  console.log(searchTerm);
-  console.log(searchLoc);
-  console.log(searchRange);
+    console.log(searchTerm);
+    console.log(searchLoc);
+    console.log(searchRange);
 
 
-  if (searchLoc !== holdSearchLoc) {
-    hourWeatherData = null;
-    dayWeatherData = null;
-    weather.search3hourWeather();
-    weather.search1DayWeather();
-  }
-  eventData = null;
-  searchEvents();
-  holdSearchLoc = searchLoc;
+    if (searchLoc !== holdSearchLoc) {
+        hourWeatherData = null;
+        dayWeatherData = null;
+        weather.search3hourWeather();
+        weather.search1DayWeather();
+    }
+    eventData = null;
+    searchEvents();
+    holdSearchLoc = searchLoc;
 
-  $eventInput.val("");
-  $addressInput.val("");
-  dateDD.text("Date Range");
-  dateDD.val("");
+    $eventInput.val("");
+    $addressInput.val("");
+    dateDD.text("Date Range");
+    dateDD.val("");
 
 });
 
 todayDD.on("click", function () {
-  dateDD.text("Today");
-  dateDD.val("today");
+    dateDD.text("Today");
+    dateDD.val("today");
 });
 
 tomorrowDD.on("click", function () {
-  dateDD.text("Tomorrow");
-  dateDD.val("tomorrow");
+    dateDD.text("Tomorrow");
+    dateDD.val("tomorrow");
 });
 
 thisWeekDD.on("click", function () {
-  dateDD.text("This Week");
-  dateDD.val("this_week");
+    dateDD.text("This Week");
+    dateDD.val("this_week");
 });
 
 thisWeekendDD.on("click", function () {
-  dateDD.text("This Weekend");
-  dateDD.val("this_weekend");
+    dateDD.text("This Weekend");
+    dateDD.val("this_weekend");
 });
 
 nextWeekDD.on("click", function () {
-  dateDD.text("Next Week");
-  dateDD.val("next_week");
+    dateDD.text("Next Week");
+    dateDD.val("next_week");
 });
 

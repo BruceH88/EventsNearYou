@@ -119,25 +119,28 @@ h6 a:active {
     overflow: hidden;
 }
 
+.weather {
+    max-width: 75px;
+}
+
 @media only screen and (max-width: 575px) {
     .event-img {
         width: 85%;
     }
     .weatherIcon {
-        width: 33%;
+        width: 45%;
     }
-
 }
 
 @media only screen and (max-width: 767px) and (min-width: 576px) {
     .weatherIcon {
-        width: 40%;
+        width: 65%;
     }
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px) {
     .weatherIcon {
-        width:70%;
+        width:85%;
     }
 }
 
@@ -148,13 +151,146 @@ h6 a:active {
 
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px)  {
     .weatherIcon {
-        width:40%;
+        width:75%;
     }
 
 }
 
+@media only screen and (max-width: 332px) and (min-width: 319px)  {
+    .weather {
+
+        max-width: 125px;
+    }
+}
+
+@media only screen and (max-width: 479px) and (min-width: 333px)  {
+    .weather {
+        /* width:50%; */
+    }
+}
+
+@media only screen and (max-width: 625px) and (min-width: 480px)  {
+    /* HELP: 2x2 or 1x4 */
+    .weather {
+        /* width:10%; */
+        margin-left:0;
+        margin-right:0;
+    }
+}
+
+@media only screen and (max-width: 991px) and (min-width: 626px)  {
+    .weather {
+        /* width:10%; */
+        margin-left:0;
+        margin-right:0;
+    }
+}
+
+@media only screen and (max-width: 1229px) and (min-width: 992px)  {
+    /* HELP: 1x4 */
+    .weather {
+        /* width:40%; */
+    }
+}
+
+@media only screen and (min-width: 1230px)  {
+    .weather {
+        /* width:40%; */
+    }
+}
+
+/* Loading start */
+
+.sk-folding-cube {
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+            transform: rotateZ(45deg);
+  }
+  
+  .sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1); 
+  }
+  .sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+            animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+  }
+  .sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+            transform: scale(1.1) rotateZ(90deg);
+  }
+  .sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+            transform: scale(1.1) rotateZ(180deg);
+  }
+  .sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+            transform: scale(1.1) rotateZ(270deg);
+  }
+  .sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+  }
+  .sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s; 
+  }
+  .sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+  }
+  @-webkit-keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    } 
+  }
+  
+  @keyframes sk-foldCubeAngle {
+    0%, 10% {
+      -webkit-transform: perspective(140px) rotateX(-180deg);
+              transform: perspective(140px) rotateX(-180deg);
+      opacity: 0; 
+    } 25%, 75% {
+      -webkit-transform: perspective(140px) rotateX(0deg);
+              transform: perspective(140px) rotateX(0deg);
+      opacity: 1; 
+    } 90%, 100% {
+      -webkit-transform: perspective(140px) rotateY(180deg);
+              transform: perspective(140px) rotateY(180deg);
+      opacity: 0; 
+    }
+  }
+  /* Loader end  */
 
 #background1 {
     background-image: url("../Images/JTBackgrounds/bikers.jpeg");
@@ -197,4 +333,14 @@ h6 a:active {
 
 #event-description {
     line-height: 1.6;
+}
+
+
+
+#loading-gif {
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
