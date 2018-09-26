@@ -218,6 +218,7 @@ function buildResults() {
   var startTime = moment(eventStart).format("h:mm a");
   var endTime = moment(eventEnd).format("h:mm a");
   var eventTime = startTime + " - " + endTime;
+  
 
   var eventImage = "";
   // CYA for missing event image

@@ -128,19 +128,19 @@ h6 a:active {
         width: 85%;
     }
     .weatherIcon {
-        width: 33%;
+        width: 45%;
     }
 }
 
 @media only screen and (max-width: 767px) and (min-width: 576px) {
     .weatherIcon {
-        width: 40%;
+        width: 65%;
     }
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px) {
     .weatherIcon {
-        width:70%;
+        width:85%;
     }
 }
 
@@ -153,7 +153,7 @@ h6 a:active {
 
 @media only screen and (min-width: 992px)  {
     .weatherIcon {
-        width:40%;
+        width:75%;
     }
 
 }

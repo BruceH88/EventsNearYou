@@ -66,7 +66,7 @@ var weather = {
 
         if (index >= 0 && index < weatherData.length) {
             console.log(weatherData[index]);
-            var iconImg = $("<img class='img-fluid weather'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
+            var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
             iconImg.attr("alt", weatherData[index].weather.description);
             var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
             var weatherDiv = $("<div>");
@@ -161,62 +161,59 @@ var searchEvents = function () {
 
 function buildResults() {
 
-    console.log("in buildResults");
-    if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
-        return false;
+  console.log("in buildResults");
+  if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
+    return false;
+  }
+  console.log("We have all the data");
+  console.log(eventData.length);
+
+  // event for loop starts here-----
+
+  for (i = 0; i < eventData.length; i++) {
+
+    var eventName = (eventData[i].name.text);
+    var eventStart = (eventData[i].start.local);
+    var eventDescribe = (eventData[i].description.text);
+    var eventId = (eventData[i].id);
+    console.log("EventID " + eventId);
+
+    // moment.js for converting "2018-09-23T08:00:00"
+    // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
+    var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
+    var startTime = moment(eventStart).format("h:mm a");
+
+    var eventSnippet = "";
+    // using .slice to get snippet of event description
+    var eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    if (eventDescribe === null) {
+      eventSnippet = "No description available."
+    } else if (eventDescribe.length > 260) {
+      eventSnippet = (eventDescribe.slice(0, 260) + "...");
+    } else {
+      eventSnippet = eventDescribe;
     }
-    console.log("We have all the data");
-    console.log(eventData.length);
 
-    // event for loop starts here-----
+    var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
+    // compile event and weather data to write to DOM
 
-    for (i = 0; i < eventData.length; i++) {
+    var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
+    eventInfo += eventName;
+    eventInfo += "</a> </h2> <h3 class='row'>";
+    eventInfo += startDate + " @" + startTime;
+    eventInfo += "</h3> <p class='row'>";
+    eventInfo += eventSnippet;
+    eventInfo += "</p> </div>";
+    console.log(eventInfo)
 
-        var eventName = (eventData[i].name.text);
-        var eventStart = (eventData[i].start.local);
-        var eventDescribe = (eventData[i].description.text);
-        var eventId = (eventData[i].id);
-        console.log("EventID " + eventId);
-
-        // moment.js for converting "2018-09-23T08:00:00"
-        // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
-        var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
-        var startTime = moment(eventStart).format("h:mm a");
-
-        // using .slice to get snippet of event description
-        if (eventDescribe === null) {
-            eventSnippet = "No description available."
-        } else if (eventDescribe.length > 260) {
-            eventSnippet = (eventDescribe.slice(0, 260) + "...");
-        } else {
-            eventSnippet = eventDescribe;
-        }
-
-        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
-        // compile event and weather data to write to DOM
-        // var eventInfo = "<div class ='col-7 col-md-6 event'> <h3 class= 'row'>";
-        // eventInfo += eventName;
-        // eventInfo += "</h3> <h2 class='row'>";
-        // eventInfo += startReformat;
-        // eventInfo += "</h2> <p class='row'>";
-        // eventInfo += eventSnippet;
-        // eventInfo += "</p> </div>";
-        var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
-        eventInfo += eventName;
-        eventInfo += "</a> </h2> <h3 class='row'>";
-        eventInfo += startDate + " @" + startTime;
-        eventInfo += "</h3> <p class='row'>";
-        eventInfo += eventSnippet;
-        eventInfo += "</p> </div>";
-        console.log(eventInfo)
-
-        var eventImage = "";
-        // CYA for missing event image
-        if ((eventData[i].logo) == null) {
-            eventImage = "https://dummyimage.com/300x225/000/fff.png&text=This+event+has+no+image"
-        } else {
-            eventImage = (eventData[i].logo.original.url);
-        }
+    var eventImage = "";
+    // CYA for missing event image
+    if ((eventData[i].logo) == null) {
+      eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
+    } else {
+      eventImage = (eventData[i].logo.original.url);
+    }
+    
 
         var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
         imageRender += eventImage;
