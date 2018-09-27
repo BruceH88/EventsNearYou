@@ -39,33 +39,36 @@ var weather = {
     getBasicWeather: function (eventTime) {
         // eventTime formatted as 2018-09-23T08:00:00
         var eventStart = moment(eventTime, "YYYY-MM-DD hh:mm:ss");
-        console.log("Event Start " + eventStart.format("MM/DD/YYYY hh:mm a"));
         var index = 0;
-        var curTime = moment();
+        var curTime;
+        // Get the current utc time
+        if (hourWeatherData.length > 0) {
+            curTime = moment(hourWeatherData[0].timestamp_utc, "YYYY-MM-DD hh:mm:ss");
+        } else {
+            curTime = moment().add(20, 'days');
+        }
+        // determine the time offset so we can display the correct weather
         var hourDiff = eventStart.diff(curTime, 'hours');
         var dayDiff = eventStart.diff(curTime, 'days');
-        console.log("Diff " + hourDiff);
         if (hourDiff < 1) {
             index = 0;
         } else {
             index = Math.floor(parseInt(hourDiff) / 3);
         }
-        console.log("Index " + index);
         var weatherData = null;
+        // determine if we use the hour weather or day weather
         if (index <= 40) {
             weatherData = hourWeatherData;
         } else {
             index = parseInt(dayDiff);
-            console.log("Index " + index);
             weatherData = dayWeatherData;
             if (index > 16) {
+                // event is beyond the weather we have
                 index = -1;
             }
         }
-        console.log(weatherData);
 
         if (index >= 0 && index < weatherData.length) {
-            console.log(weatherData[index]);
             var iconImg = $("<img class='img-fluid weatherIcon'>").attr("src", "https://www.weatherbit.io/static/img/icons/" + weatherData[index].weather.icon + ".png");
             iconImg.attr("alt", weatherData[index].weather.description);
             var tempP = $("<p>").text(Math.round(weatherData[index].temp) + "° F");
@@ -93,7 +96,6 @@ var weather = {
                 } else {
                     hourWeatherData = response.data;
                 }
-                console.log(hourWeatherData);
                 buildResults();
 
             });
@@ -112,7 +114,6 @@ var weather = {
                 } else {
                     dayWeatherData = response.data;
                 }
-                console.log(dayWeatherData);
                 buildResults();
 
             });
@@ -148,7 +149,6 @@ var searchEvents = function () {
         method: "GET"
 
     }).then(function (response) {
-        console.log(response);
         eventData = response.events;
 
         buildResults();
@@ -161,65 +161,59 @@ var searchEvents = function () {
 
 function buildResults() {
 
-  console.log("in buildResults");
-  if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
-    return false;
-  }
-  console.log("We have all the data");
-  console.log(eventData.length);
-
-  // event for loop starts here-----
-
-  for (i = 0; i < eventData.length; i++) {
-
-    var eventName = (eventData[i].name.text);
-    var eventStart = (eventData[i].start.local);
-    var eventDescribe = (eventData[i].description.text);
-    var eventId = (eventData[i].id);
-    console.log("EventID " + eventId);
-
-    // moment.js for converting "2018-09-23T08:00:00"
-    // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
-    var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
-    var startTime = moment(eventStart).format("h:mm a");
-
-    var eventSnippet = "";
-    // using .slice to get snippet of event description
-    var eventSnippet = (eventDescribe.slice(0, 260) + "...");
-    if (eventDescribe === null) {
-      eventSnippet = "No description available."
-    } else if (eventDescribe.length > 260) {
-      eventSnippet = (eventDescribe.slice(0, 260) + "...");
-    } else {
-      eventSnippet = eventDescribe;
+    if (hourWeatherData == null || dayWeatherData == null || eventData == null) {
+        return false;
     }
 
-    var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
-    // compile event and weather data to write to DOM
+    // event for loop starts here-----
 
-    var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
-    eventInfo += eventName;
-    eventInfo += "</a> </h2> <h3 class='row'>";
-    eventInfo += startDate + " @" + startTime;
-    eventInfo += "</h3> <p class='row'>";
-    eventInfo += eventSnippet;
-    eventInfo += "</p> </div>";
-    console.log(eventInfo)
+    for (i = 0; i < eventData.length; i++) {
 
-    var eventImage = "";
-    // CYA for missing event image
-    if ((eventData[i].logo) == null) {
-      eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
-    } else {
-      eventImage = (eventData[i].logo.original.url);
-    }
-    
+        var eventName = (eventData[i].name.text);
+        var eventStart = (eventData[i].start.local);
+        var eventDescribe = (eventData[i].description.text);
+        var eventId = (eventData[i].id);
+
+        // moment.js for converting "2018-09-23T08:00:00"
+        // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
+        var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
+        var startTime = moment(eventStart).format("h:mm a");
+
+        var eventSnippet = "";
+        // using .slice to get snippet of event description
+        var eventSnippet = (eventDescribe.slice(0, 260) + "...");
+        if (eventDescribe === null) {
+            eventSnippet = "No description available."
+        } else if (eventDescribe.length > 260) {
+            eventSnippet = (eventDescribe.slice(0, 260) + "...");
+        } else {
+            eventSnippet = eventDescribe;
+        }
+
+        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventData[i].start.utc));
+        // compile event and weather data to write to DOM
+
+        var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
+        eventInfo += eventName;
+        eventInfo += "</a> </h2> <h3 class='row'>";
+        eventInfo += startDate + " @" + startTime;
+        eventInfo += "</h3> <p class='row'>";
+        eventInfo += eventSnippet;
+        eventInfo += "</p> </div>";
+
+        var eventImage = "";
+        // CYA for missing event image
+        if ((eventData[i].logo) == null) {
+            eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
+        } else {
+            eventImage = (eventData[i].logo.original.url);
+        }
+
 
         var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
         imageRender += eventImage;
         imageRender += " class='img-fluid event-img'> </div>";
 
-        console.log(imageRender);
 
         if ((eventData.length) === 0) {
 
@@ -230,14 +224,11 @@ function buildResults() {
             var eventRender = $("<div class='row p-1 m-2 border-bottom'>").append(imageRender)
                 .append(eventInfo).append(eventWeather);
 
-            console.log(eventRender);
-
             $eventCard.append(eventRender);
 
         };
     };
     $("#event-card").show();
-    console.log("loop end i - " + i);
     if (i === 0) {
         $eventCard.text("No events found.");
     }
@@ -257,11 +248,6 @@ $("#eventSearch").on("click", function (event) {
         searchLoc = "New York, New York, United States of America"
     }
     searchRange = dateDD.val();
-
-    console.log(searchTerm);
-    console.log(searchLoc);
-    console.log(searchRange);
-
 
     if (searchLoc !== holdSearchLoc) {
         hourWeatherData = null;
