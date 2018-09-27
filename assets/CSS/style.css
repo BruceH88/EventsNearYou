@@ -344,3 +344,7 @@ h6 a:active {
     align-items: center;
     justify-content: center;
 }
+
+#event-image-height {
+    max-height: 300px;
+}

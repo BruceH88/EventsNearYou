@@ -225,7 +225,7 @@ function buildResults() {
   }
 
   $htmlHead.find('title').html(eventName);
-  $eventImg.append("<img src='" + eventImage + "' class='img-fluid'>");
+  $eventImg.append("<img src='" + eventImage + "' class='img-fluid img-thumbnail' id='event-image-height'>");
   $header.text(eventName);
   $eventDate.text(startDate);
   $eventTime.text(eventTime);
