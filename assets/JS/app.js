@@ -200,7 +200,7 @@ function buildResults() {
         var eventImage = "";
         // CYA for missing event image
         if ((eventData[i].logo) == null) {
-            eventImage = "https://dummyimage.com/300x225/FF9800/096cb2.png&text=This+event+has+no+image"
+            eventImage = "https://dummyimage.com/300x255/000000/fff.png&text=Sorry!+This+event+has+no+image"
         } else {
             eventImage = (eventData[i].logo.original.url);
         }
