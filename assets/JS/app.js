@@ -49,6 +49,7 @@ var weather = {
         // determine the time offset so we can display the correct weather
         var hourDiff = eventStart.diff(curTime, 'hours');
         var dayDiff = eventStart.diff(curTime, 'days');
+
         if (hourDiff < 1) {
             index = 0;
         } else {
@@ -166,12 +167,11 @@ function buildResults() {
 
     // event for loop starts here-----
     for (i = 0; i < eventData.length; i++) {
-
+        console.log(eventData[i]);
         var eventName = (eventData[i].name.text);
         var eventStart = (eventData[i].start.local);
         var eventDescribe = (eventData[i].description.text);
         var eventId = (eventData[i].id);
-        console.log("EventID " + eventId);
 
         // moment.js for converting "2018-09-23T08:00:00"
         // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
@@ -187,7 +187,7 @@ function buildResults() {
             eventSnippet = eventDescribe;
         }
 
-        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
+        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventData[i].start.utc));
 
         var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
         eventInfo += eventName;
@@ -209,12 +209,9 @@ function buildResults() {
         imageRender += eventImage;
         imageRender += " class='img-fluid event-img'> </div>";
 
-        console.log(imageRender);
-
         if ((eventData.length) === 0) {
 
             console.log("No events available!");
-
 
         } else {
 
