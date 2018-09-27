@@ -35,7 +35,6 @@ var eventData = null;
 
 var weather = {
 
-
     getBasicWeather: function (eventTime) {
         // eventTime formatted as 2018-09-23T08:00:00
         var eventStart = moment(eventTime, "YYYY-MM-DD hh:mm:ss");
@@ -166,22 +165,20 @@ function buildResults() {
     }
 
     // event for loop starts here-----
-
     for (i = 0; i < eventData.length; i++) {
 
         var eventName = (eventData[i].name.text);
         var eventStart = (eventData[i].start.local);
         var eventDescribe = (eventData[i].description.text);
         var eventId = (eventData[i].id);
+        console.log("EventID " + eventId);
 
         // moment.js for converting "2018-09-23T08:00:00"
         // var eventNewFormat = "Day, Month YYYY, h:mm am/pm";
         var startDate = moment(eventStart).format("dddd, MMMM Do YYYY,");
         var startTime = moment(eventStart).format("h:mm a");
-
         var eventSnippet = "";
         // using .slice to get snippet of event description
-        var eventSnippet = (eventDescribe.slice(0, 260) + "...");
         if (eventDescribe === null) {
             eventSnippet = "No description available."
         } else if (eventDescribe.length > 260) {
@@ -190,8 +187,7 @@ function buildResults() {
             eventSnippet = eventDescribe;
         }
 
-        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventData[i].start.utc));
-        // compile event and weather data to write to DOM
+        var eventWeather = $("<div class='col-12 col-sm-5 col-md-2 weather mx-auto text-center'>").append(weather.getBasicWeather(eventStart));
 
         var eventInfo = "<div class ='col-7 col-md-6 mx-auto event'> <h2 class= 'row'> <a href='event.html#eventid=" + eventId + "&&searchloc=" + searchLoc + "' target='_blank'>";
         eventInfo += eventName;
@@ -209,15 +205,16 @@ function buildResults() {
             eventImage = (eventData[i].logo.original.url);
         }
 
-
         var imageRender = "<div class='col-12 col-lg-3 my-3 mx-auto'> <img src= ";
         imageRender += eventImage;
         imageRender += " class='img-fluid event-img'> </div>";
 
+        console.log(imageRender);
 
         if ((eventData.length) === 0) {
 
             console.log("No events available!");
+
 
         } else {
 
