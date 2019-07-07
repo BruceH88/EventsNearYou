@@ -49,8 +49,8 @@
                     </div>
                     <div class="col-12 col-sm-6 col-lg-2 px-auto text-right my-1">
                         <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Date Range
                             </button>
                             <div id="dropdownMenu" class="dropdown-menu btn btn-outline-dark" aria-labelledby="dropdownMenuButton">
@@ -79,19 +79,17 @@
         <div class="modal-dialog bg-light">
 
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">About</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+
                 <div class="modal-body">
-                    <p class="text-center">ENYware is the brainchild of three developers who wanted to simplify the process
-                        of finding something to do. Using the Eventbrite, Weatherbit, and Yelp APIs, as well as the Algolia
-                        CDN, ENYware makes the process as simple as 1 2 3.</p>
-                    <p class="text-center"> Want to see if there's anything exciting happening nearby? Just type in your
-                        city, and feel free to narrow it down with an event type. Wondering if you should break out that
-                        tank top or a light jacket? Each event comes loaded with specific weather info. Feeling peckish?
-                        Each event page comes with a few nearby restaurants.</p>
-                    <p class="text-center">Find things to do wherever you are, with <span id=tagline>Events Near You, Anywhere</span>.</p>
+                    <textarea id="postInput" rows="10" cols="50" class="text-center">
+
+                            </textarea>
+                    <form autocomplete="off">
+                        <div class="autocomplete" style="width:300px;">
+                            Topic: <input id="topicInput" type="text" name="Topic" placeholder="eg: Landscapes">
+                        </div>
+                        <input type="submit" class="postSubmit" value="Submit">
+                    </form>
                 </div>
             </div>
         </div>

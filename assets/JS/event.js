@@ -1,5 +1,5 @@
 // define constants
-var WeatherAPIKey = "ff7593f8e0464608841e5c9dd3adfff5";
+var WeatherAPIKey = "a27d5378afcd43eeb032be54d0ca5652";
 
 var $htmlHead = $('html head');
 var $eventImg = $('#event-img');
